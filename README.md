@@ -59,7 +59,7 @@ FLAME 3 requires citation per its dataset terms (see Acknowledgements). The Bore
 
 ```bash
 # clone
-git clone <repo-url>
+git clone https://github.com/stephenyu2/ai-firefighter-recon
 cd ai-firefighter-recon
 
 # (recommended) create a virtual environment
