@@ -19,43 +19,60 @@ from pathlib import Path
 
 def build_flame3_manifest(root: Path):
     """
-    FLAME 3 CV subset (documented structure): each sample is an image
-    "quartet" - raw RGB, raw thermal, corrected-FOV RGB, thermal TIFF -
-    split across Fire/ and No_Fire/ folders (folder names TBD once you've
-    unzipped - check and adjust).
+    FLAME 3 CV subset - CONFIRMED structure (verified against a real
+    unzipped copy, not guessed from the dataset page):
 
-    `group` is a placeholder time-block extracted from the filename order.
-    FLAME 3 doesn't guarantee a parseable timestamp in the filename, so
-    fall back to sequential frame index if none is found, then bin that
-    index into fixed-size blocks. This assumes files sort in capture order
-    when listed alphabetically - verify that assumption once you see the
-    real filenames.
+        Fire/
+          RGB/
+            Raw/
+            Corrected FOV/      <- using this: aligned to thermal camera FOV
+          Thermal/
+            Raw JPG/
+            Celsius TIFF/       <- using this: calibrated per-pixel temperature
+        No Fire/                <- note the space, not an underscore
+          (same subfolders)
+
+    Filenames are plain sequential frame numbers (00001.JPG, 00001.TIFF,
+    ...) shared between the RGB and Thermal side for the same frame - no
+    suffix-stripping needed, just match on stem.
+
+    `group` is a time-block built from that sequential frame order, since
+    the numbering corresponds to capture order (confirmed - these aren't
+    arbitrary filenames).
     """
     rows = []
     BLOCK_SIZE = 20  # frames per time-block group; tune after inspecting capture rate
+    IMAGE_EXTENSIONS = {".jpg", ".jpeg"}
 
-    for label_name, label in [("Fire", 1), ("No_Fire", 0)]:
+    for label_name, label in [("Fire", 1), ("No Fire", 0)]:
         label_dir = root / label_name
-        if not label_dir.exists():
-            print(f"[warn] expected folder not found: {label_dir} - adjust path")
+        rgb_dir = label_dir / "RGB" / "Corrected FOV"
+        thermal_dir = label_dir / "Thermal" / "Celsius TIFF"
+
+        if not rgb_dir.exists():
+            print(f"[warn] expected folder not found: {rgb_dir} - adjust path")
             continue
 
-        # group files into quartets by shared basename stem (adjust regex
-        # once real filenames are visible, e.g. IMG_0001_rgb.jpg / _thermal.tiff)
-        rgb_files = sorted(label_dir.glob("*rgb*.jpg")) or sorted(label_dir.glob("*RGB*.jpg"))
+        rgb_files = sorted(p for p in rgb_dir.iterdir() if p.suffix.lower() in IMAGE_EXTENSIONS)
 
         for i, rgb_path in enumerate(rgb_files):
-            stem = re.sub(r"(_rgb|_RGB).*", "", rgb_path.stem)
-            thermal_tiff = next(label_dir.glob(f"{stem}*thermal*.tif*"), None)
+            stem = rgb_path.stem  # e.g. "00001"
+
+            thermal_path = None
+            if thermal_dir.exists():
+                matches = list(thermal_dir.glob(f"{stem}.*"))
+                thermal_path = matches[0] if matches else None
+            if thermal_path is None:
+                print(f"[warn] no thermal match for {rgb_path.name} in {label_name} - check {thermal_dir}")
 
             rows.append({
-                "sample_id": stem,
+                "sample_id": f"{label_name.replace(' ', '')}_{stem}",
                 "dataset": "flame3",
                 "burn_site": "sycan_marsh",  # single-burn subset; update if using full 6-burn set
                 "group": i // BLOCK_SIZE,     # time-block for leakage-safe splitting
                 "label": label,
                 "rgb_path": str(rgb_path),
-                "thermal_path": str(thermal_tiff) if thermal_tiff else "",
+                "thermal_path": str(thermal_path) if thermal_path else "",
             })
     return rows
 
