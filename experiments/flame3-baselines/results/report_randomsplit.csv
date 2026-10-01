@@ -1,0 +1,2 @@
+key,recall,precision,specificity,fp,fn,roc_auc,pr_auc,mixed,small,t_recall,t_spec,t_prec,t_mixed
+F1_resnet50_fullft_rgb_RANDOMSPLIT,0.9903536977491961,1.0,1.0,0,6,0.9999307018516465,0.9999870802983426,0.9390243902439024,0.9454545454545454,0.9951768488745981,1.0,1.0,0.975609756097561

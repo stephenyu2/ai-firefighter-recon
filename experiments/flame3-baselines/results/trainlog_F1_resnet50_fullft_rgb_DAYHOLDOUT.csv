@@ -1,0 +1,2 @@
+fold,n_train,n_val,n_test,trainable_params,train_s,predict_s
+0,270,70,364,23510081,31.1927809715271,1.7520289421081543

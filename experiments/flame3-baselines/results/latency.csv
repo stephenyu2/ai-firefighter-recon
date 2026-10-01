@@ -1,0 +1,19 @@
+model,load_s,ms_median,ms_p90,gpu_mem_gb,note
+B1_maxtemp_rule,0.0,0.5842079408466816,0.6309750955551863,0.0,"CPU, reads the Celsius TIFF"
+Z1_clipL14_zeroshot_rgb,1.2,39.6933329757303,39.88723326474428,2.16,text prompts embedded once up front
+Z2_siglip2_zeroshot_rgb,2.3,123.55962512083352,123.80830813199282,5.62,
+Z3_firevit_edbianchi_rgb,0.6,12.15366693213582,12.672458961606026,0.38,
+Z4_forestfire_siglip2_rgb,0.4,12.938834028318524,13.432133477181196,0.42,
+P1_dinov2b_probe_rgb,0.3,39.401540998369455,39.617174956947565,0.42,448x364 features; the logistic-regression step adds under 1 ms
+P2_dinov2b_probe_thermal,0.0,39.9016251321882,40.16540008597076,0.42,reads TIFF + 3-window encoding
+L1_dinov2b_lora_rgb,0.2,21.81595889851451,22.071791160851717,0.42,"308x252, adapters not merged"
+L2_firevit_lora_rgb,0.4,13.89895798638463,14.190441556274893,0.39,
+F1_resnet50_fullft_rgb,0.3,8.369666989892721,8.705383259803057,0.18,320x256
+V3_qwen35_0p8b,1.2,266.01929194293916,266.889166040346,2.45,"bf16, one forward pass for the yes/no token"
+V4_qwen35_2b,2.0,339.5102499052882,341.80521704256535,6.73,"bf16, one forward pass for the yes/no token"
+V5_qwen35_4b,4.6,760.2110831066966,761.579425027594,14.28,"bf16, one forward pass for the yes/no token"
+V7_qwen3vl_8b,8.5,372.2390830516815,376.00924987345934,27.59,"bf16, one forward pass for the yes/no token"
+V8_gemma4_e4b,16.0,300.8728330023587,302.70314146764576,35.42,"bf16, one forward pass for the yes/no token"
+V1_molmo2_4b,11.1,535.9052091371268,537.5218996312469,11.89,"bf16, one forward pass for the yes/no token"
+V2_molmo2_8b,31.9,739.9253339972347,743.5434336774051,19.95,"bf16, one forward pass for the yes/no token"
+V6_qwen35_9b,8.3,902.8507079929113,905.9666831046343,20.22,"bf16, one forward pass for the yes/no token"
