@@ -69,7 +69,7 @@ def build_flame3_manifest(root: Path):
                 "sample_id": f"{label_name.replace(' ', '')}_{stem}",
                 "dataset": "flame3",
                 "burn_site": "sycan_marsh",  # single-burn subset; update if using full 6-burn set
-                "group": i // BLOCK_SIZE,     # time-block for leakage-safe splitting
+                "group": f"{label_name.replace(' ', '')}_{i // BLOCK_SIZE}",  # prefixed so Fire/No Fire group ids never collide
                 "label": label,
                 "rgb_path": str(rgb_path),
                 "thermal_path": str(thermal_path) if thermal_path else "",

@@ -2,10 +2,11 @@
 pytest>=8.0
 numpy>=1.26
 opencv-python-headless>=4.9
+scikit-learn
+pandas
 
 # Added as the pipeline is built (Milestone 2+):
 # torch
 # torchvision
 # ultralytics          # YOLO
 # transformers         # backbones / Molmo 2
-# scikit-learn         # metrics (Cohen's kappa, precision/recall/F1)
