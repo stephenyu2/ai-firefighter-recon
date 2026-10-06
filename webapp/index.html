@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recon Replay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="brand">
+    <h1>Recon Replay</h1>
+    <span class="sub">AI Firefighter &middot; drone imagery to air attack recon brief</span>
+  </div>
+  <div class="header-right">
+    <span class="badge mock">Mock data</span>
+    <button id="theme" type="button">Theme</button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="panel picker">
+    <h2>Sequences</h2>
+    <ul id="seq-list" class="seq-list"></ul>
+  </aside>
+
+  <section class="stage">
+    <div class="modelbar">
+      <span class="modelbar-label">Model</span>
+      <div class="seg" id="model-seg" role="group" aria-label="Brief model"></div>
+    </div>
+    <div class="viewer">
+      <canvas id="frame"></canvas>
+      <div class="stamp" id="stamp-l"></div>
+      <div class="stamp right mono" id="stamp-r"></div>
+    </div>
+
+    <div class="transport">
+      <button id="play" class="play" type="button">Play</button>
+      <input id="scrub" type="range" min="0" max="0" value="0" step="1" aria-label="Timeline scrubber">
+      <span id="counter" class="counter">Frame 1 / 1</span>
+    </div>
+
+    <div class="toggles">
+      <label><input id="tg-mask" type="checkbox" checked><span class="swatch" style="background:rgba(255,90,20,.85)"></span>Thermal mask</label>
+      <label><input id="tg-score" type="checkbox" checked><span class="swatch" style="background:#ffd27a"></span>Detection score</label>
+      <label><input id="tg-track" type="checkbox" checked><span class="swatch" style="background:#78dcff"></span>Truth path</label>
+      <label><input id="tg-heading" type="checkbox" checked><span class="swatch" style="background:#ffffff;border:1px solid #999;border-radius:50%"></span>Model claim (size + heading)</label>
+    </div>
+
+    <div class="chartwrap">
+      <div class="chart-head">
+        <h3>Fire size and detector confidence over time</h3>
+        <div class="legend">
+          <span><i style="background:var(--series-area)"></i>Fire size (thermal)</span>
+          <span><i style="background:var(--series-score)"></i>Detector confidence (RGB)</span>
+        </div>
+      </div>
+      <div class="chartbox" id="chartbox">
+        <canvas id="chart"></canvas>
+        <div class="chart-tip mono" id="chart-tip" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="panel brief">
+    <h2>Recon brief</h2>
+    <div class="brief-body">
+      <div id="brief-single">
+      <div class="ref-line" id="ref-line"></div>
+      <div class="field" id="f-presence"><div class="k">Presence</div><div class="v"></div></div>
+      <div class="field" id="f-extent"><div class="k">Extent</div><div class="v"></div></div>
+      <div class="field" id="f-direction"><div class="k">Direction</div><div class="v"></div></div>
+      <div class="field" id="f-trend"><div class="k">Trend</div><div class="v"></div></div>
+      <div class="field" id="f-confidence"><div class="k">Confidence</div><div class="v"></div></div>
+      <div class="field" id="f-limits"><div class="k">Limitations</div><div class="v"></div></div>
+      </div>
+      <div id="brief-compare" hidden></div>
+    </div>
+    <div class="thermal-badge" id="badge"></div>
+  </aside>
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
