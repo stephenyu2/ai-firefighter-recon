@@ -3,6 +3,13 @@ pytest>=8.0
 numpy>=1.26
 opencv-python-headless>=4.9
 
+# Recon gateway (src/recon_gateway) and the experiment scripts
+requests>=2.31
+pillow>=10.0
+pandas>=2.1
+scikit-learn>=1.4
+tifffile>=2024.1
+
 # Added as the pipeline is built (Milestone 2+):
 # torch
 # torchvision
