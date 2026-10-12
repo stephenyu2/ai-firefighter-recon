@@ -1,0 +1,214 @@
+[
+ {
+  "id": "FL-A_plot1_burn_thermal",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-A_plot1_burn_thermal/rgb",
+  "tiff_dir": "recon_sequences/FL-A_plot1_burn_thermal/tiff",
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": true,
+  "site": "Florida",
+  "note": "large active fire front"
+ },
+ {
+  "id": "FL-B_plot2_smallfire_thermal",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-B_plot2_smallfire_thermal/rgb",
+  "tiff_dir": "recon_sequences/FL-B_plot2_smallfire_thermal/tiff",
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": true,
+  "site": "Florida",
+  "note": "small fires the RGB detector misses; thermal sees them"
+ },
+ {
+  "id": "FL-C_plot2_burn_thermal",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-C_plot2_burn_thermal/rgb",
+  "tiff_dir": "recon_sequences/FL-C_plot2_burn_thermal/tiff",
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": true,
+  "site": "Florida",
+  "note": "later plot 2 burn"
+ },
+ {
+  "id": "FL-D_plot1_preburn_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-D_plot1_preburn_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "no_fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "pre-burn, RGB only"
+ },
+ {
+  "id": "FL-E_plot2_takeoff_smoke_thermal",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-E_plot2_takeoff_smoke_thermal/rgb",
+  "tiff_dir": "recon_sequences/FL-E_plot2_takeoff_smoke_thermal/tiff",
+  "interval_s": 5.0,
+  "truth": "no_fire",
+  "thermal": true,
+  "site": "Florida",
+  "note": "takeoff over smoke, no pixel at 80 C"
+ },
+ {
+  "id": "FL-F_plot1_burn_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-F_plot1_burn_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "large fire, thermal withheld"
+ },
+ {
+  "id": "FL-G_plot2_smallfire_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-G_plot2_smallfire_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "small fires, thermal withheld (hardest case)"
+ },
+ {
+  "id": "FL-H_plot2_smallfire_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-H_plot2_smallfire_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "small fires, thermal withheld"
+ },
+ {
+  "id": "FL-I_plot2_smallfire_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-I_plot2_smallfire_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "small fires, thermal withheld"
+ },
+ {
+  "id": "FL-J_plot2_smallfire_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-J_plot2_smallfire_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "small fires, thermal withheld"
+ },
+ {
+  "id": "FL-K_plot2_smallfire_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-K_plot2_smallfire_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "small fires, thermal withheld"
+ },
+ {
+  "id": "FL-L_plot2_smallfire_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-L_plot2_smallfire_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "small fires, thermal withheld"
+ },
+ {
+  "id": "FL-M_plot2_smallfire_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-M_plot2_smallfire_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "small fires, thermal withheld"
+ },
+ {
+  "id": "FL-N_plot1_preburn_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-N_plot1_preburn_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "no_fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "pre-burn, RGB only"
+ },
+ {
+  "id": "FL-O_plot2_preburn_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-O_plot2_preburn_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "no_fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "pre-burn, RGB only"
+ },
+ {
+  "id": "FL-P_plot2_preburn_rgb",
+  "kind": "folder",
+  "rgb_dir": "recon_sequences/FL-P_plot2_preburn_rgb/rgb",
+  "tiff_dir": null,
+  "interval_s": 5.0,
+  "truth": "no_fire",
+  "thermal": false,
+  "site": "Florida",
+  "note": "pre-burn, RGB only"
+ },
+ {
+  "id": "SY-2_5",
+  "kind": "flame",
+  "group": "2_5",
+  "truth": "fire",
+  "thermal": true,
+  "site": "Sycan",
+  "note": "earlier demo sequence"
+ },
+ {
+  "id": "SY-15_0",
+  "kind": "flame",
+  "group": "15_0",
+  "truth": "fire",
+  "thermal": true,
+  "site": "Sycan",
+  "note": "earlier demo sequence"
+ },
+ {
+  "id": "SY-2_7",
+  "kind": "flame",
+  "group": "2_7",
+  "truth": "no_fire",
+  "thermal": true,
+  "site": "Sycan",
+  "note": "earlier demo sequence"
+ },
+ {
+  "id": "SY-13_0",
+  "kind": "flame",
+  "group": "13_0",
+  "truth": "fire",
+  "thermal": true,
+  "site": "Sycan",
+  "note": "earlier demo sequence"
+ }
+]

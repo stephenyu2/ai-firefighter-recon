@@ -1,0 +1,5 @@
+{"route": "qwen38-27b-bf16", "ttft_s": 0.303, "decode_tok_s_c1": 26.4, "tokens": 384, "aggregate_tok_s_c8": 196.6, "per_request_tok_s_c8": 25.2}
+{"route": "qwen38-27b-fp8", "ttft_s": 0.144, "decode_tok_s_c1": 45.2, "tokens": 384, "aggregate_tok_s_c8": 317.2, "per_request_tok_s_c8": 41.2}
+{"route": "qwen38-27b-int4", "ttft_s": 0.146, "decode_tok_s_c1": 74.3, "tokens": 384, "aggregate_tok_s_c8": 485.3, "per_request_tok_s_c8": 64.7}
+{"route": "qwen38-27b-nvfp4", "ttft_s": 0.294, "decode_tok_s_c1": 52.0, "tokens": 384, "aggregate_tok_s_c8": 356.5, "per_request_tok_s_c8": 46.4}
+{"route": "qwen3vl-4b", "ttft_s": 0.181, "decode_tok_s_c1": 30.2, "tokens": 384, "aggregate_tok_s_c8": 225.3, "per_request_tok_s_c8": 28.6}
