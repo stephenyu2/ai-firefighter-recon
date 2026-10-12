@@ -1,0 +1,24 @@
+model_name: recon-clef-27b-rtx6000
+description: "Clef 27B decision model with image input, BF16, release code"
+python_version: py312
+requirements:
+  - torch==2.11.0
+  - torchvision==0.26.0
+  - transformers==5.10.2
+  - accelerate>=1.0
+  - safetensors>=0.5
+  - pillow>=10.0
+  - huggingface_hub>=0.30
+weights:
+  - source: "hf://Cloudflare/clef@0b331204bb13fbd2ca93a64df1956f5b55478ce5"
+    mount_location: "/models/clef"
+environment_variables:
+  CLEF_PATH: /models/clef
+  HF_HUB_OFFLINE: "1"
+resources:
+  accelerator: RTX_PRO_6000
+  use_gpu: true
+runtime:
+  predict_concurrency: 4
+  health_checks:
+    startup_threshold_seconds: 1800

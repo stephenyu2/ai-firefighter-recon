@@ -1,0 +1,10 @@
+model_name: recon-fire-classifier-rtx6000-nvfp4
+python_version: py312
+requirements_file: ./requirements.txt
+environment_variables:
+  QUANT_VARIANTS: dinov2_lora:fp16c,dinov2_lora:nvfp4,dinov2g_qlora:fp16c,dinov2g_qlora:nvfp4
+resources:
+  accelerator: RTX_PRO_6000
+  use_gpu: true
+runtime:
+  predict_concurrency: 8

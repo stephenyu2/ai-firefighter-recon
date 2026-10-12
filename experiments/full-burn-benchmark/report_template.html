@@ -1,0 +1,214 @@
+<title>Full-Burn Detector Benchmark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column of prose; tables and charts may run wider inside their own scroll boxes. */
+:root {
+  --bg: #f4f5f6;
+  --surface: #ffffff;
+  --ink: #18212b;
+  --muted: #586472;
+  --rule: #d6dbe0;
+  --accent: #a3420f;
+  --ok: #2f6b3a;
+  --bad: #a8322a;
+  --s-dec: #f2c46d;
+  --s-pre: #d9733a;
+  --s-gpu: #7a2048;
+  --display: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171d; --surface: #1a2129; --ink: #e6eaee; --muted: #9aa6b2; --rule: #2e3843;
+    --accent: #f08a4b; --ok: #7cc48a; --bad: #f08a80; --s-dec: #e9c27a; --s-pre: #e07f45; --s-gpu: #c0558a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171d; --surface: #1a2129; --ink: #e6eaee; --muted: #9aa6b2; --rule: #2e3843;
+  --accent: #f08a4b; --ok: #7cc48a; --bad: #f08a80; --s-dec: #e9c27a; --s-pre: #e07f45; --s-gpu: #c0558a; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); padding: 40px 16px 72px; }
+main { max-width: 1000px; margin: 0 auto; display: grid; gap: 8px; }
+.prose { max-width: 68ch; }
+header { display: grid; gap: 6px; padding-bottom: 20px; border-bottom: 2px solid var(--ink); margin-bottom: 12px; }
+.eyebrow { font: 600 13px/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(32px, 6vw, 46px)/1.05 var(--display); margin: 0; text-wrap: balance; }
+h2 { font: 700 26px/1.15 var(--display); margin: 36px 0 4px; text-wrap: balance; }
+h3 { font: 600 18px/1.3 var(--display); margin: 22px 0 6px; letter-spacing: .01em; }
+p, li { margin: 0 0 10px; }
+.meta { color: var(--muted); font-size: 14px; }
+.sub { color: var(--muted); font-size: 13px; }
+.ok { color: var(--ok); font-weight: 600; }
+.bad { color: var(--bad); font-weight: 600; }
+code, .mono { font-family: var(--mono); font-size: .9em; }
+.findings { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--accent); padding: 18px 22px; display: grid; gap: 4px; }
+.findings ol { margin: 0; padding-left: 22px; }
+.findings li { padding-left: 4px; }
+.tw { overflow-x: auto; margin: 8px 0 14px; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font: 600 12px/1.3 var(--body); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; background: var(--bg); }
+tbody tr:last-child td { border-bottom: 0; }
+table.num td:nth-child(n+3) { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.num td .sub { font-family: var(--body); }
+figure { margin: 10px 0 18px; background: var(--surface); border: 1px solid var(--rule); padding: 16px; overflow-x: auto; }
+figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; max-width: 68ch; }
+.chart { width: 100%; min-width: 560px; height: auto; display: block; }
+.chart .grid { stroke: var(--rule); stroke-width: 1; }
+.chart .tick { fill: var(--muted); font: 11px var(--mono); }
+.chart .lab { fill: var(--ink); font: 13px var(--body); }
+.chart .val { fill: var(--ink); font: 500 12px var(--mono); }
+.s-dec { fill: var(--s-dec); background: var(--s-dec); }
+.s-pre { fill: var(--s-pre); background: var(--s-pre); }
+.s-gpu { fill: var(--s-gpu); background: var(--s-gpu); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); margin-top: 8px; }
+.legend i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.two > div { min-width: 0; }
+.summary { display: grid; gap: 14px; padding-bottom: 8px; }
+.summary h2 { margin: 8px 0 0; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--rule); padding: 14px 16px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.stat b { font: 700 30px/1.05 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; line-height: 1.4; color: var(--muted); }
+.recs { margin: 0; padding-left: 20px; }
+.recs li { margin-bottom: 6px; }
+.takeaway { background: var(--surface); border: 1px solid var(--rule); padding: 12px 16px; margin: 6px 0 10px; display: grid; gap: 2px; max-width: 80ch; }
+.takeaway p { margin: 0; }
+.tk-label { font: 600 12px/1.3 var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.result { margin: -4px 0 16px; font-size: 15px; max-width: 80ch; }
+.result strong { color: var(--accent); font-weight: 600; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 0; font-size: 15px; }
+dt { color: var(--muted); }
+dd { margin: 0; }
+@media (max-width: 520px) { dl { grid-template-columns: 1fr; } dd { margin-bottom: 6px; } }
+</style>
+
+<main>
+<header>
+  <div class="eyebrow">CIS 5980 · Wildfire reconnaissance · Detector benchmark</div>
+  <h1>Full-Burn Detector Benchmark</h1>
+  <div class="meta">Every frame of two FLAME 3 burns through the fire detectors on three GPUs, with end-to-end and server-side time reported separately, and a 4-bit (NVFP4) test on the RTX PRO 6000.</div>
+</header>
+
+<section class="summary">
+  <h2>Summary</h2>
+  <div class="prose">
+    <p>We ran every frame of two prescribed burns, 738 frames from Sycan Marsh, Oregon and 1,353 from Hanna Hammock, Florida, through our two fire detectors on three GPUs, then tested 4-bit precision, smaller uploads, and the Kai decision model. On the RTX PRO 6000 a whole burn takes 4 to 12 seconds of server time, and the upload, not the GPU, sets the end-to-end time. On the Florida site, which the detectors never trained on, they miss small fires that the thermal camera sees.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>7.5 s</b><span>Server time for all 1,353 Florida frames, DINOv2-B on the RTX PRO 6000</span></div>
+    <div class="stat"><b>0.81 vs 0.99</b><span>Florida recall, thermal-view crop vs full RGB frame (DINOv2-B)</span></div>
+    <div class="stat"><b>0 of 170</b><span>Pre-burn frames flagged as fire, in every configuration</span></div>
+    <div class="stat"><b>1.8x</b><span>Faster GPU step for DINOv2-g in 4-bit (NVFP4), with no loss in recall</span></div>
+    <div class="stat"><b>65%</b><span>Less end-to-end time when frames are shrunk and sent as full-color JPEG</span></div>
+  </div>
+  <div class="prose">
+    <p style="margin-bottom:6px"><strong>What we recommend</strong></p>
+    <ul class="recs">
+      <li>Decide fire status from the thermal camera when a frame has thermal data, and use the RGB detector for frames without it. Kai, a small text-only decision model, followed the RGB detectors and did not recover the small fires.</li>
+      <li>Send the full RGB frame, shrunk to 308 by 252 as a full-color JPEG, rather than the thermal-view crop.</li>
+      <li>Serve DINOv2-B in 16 bit on any of the three GPUs, or DINOv2-g in NVFP4 on an RTX PRO 6000 when one GPU has to serve several drones.</li>
+      <li>Add burns with small fires under tree canopy, like Florida's, to the training data.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="findings">
+  <h2 style="margin-top:0">Findings in detail</h2>
+  %%findings%%
+</section>
+
+<h2>What ran</h2>
+<div class="two">
+  <div>
+    <dl>
+      <dt>Sycan Marsh, OR</dt><dd>FLAME 3 CV subset, 738 frames (622 fire, 116 no fire), 14 flights over Oct 25 to 27, 2022. The detectors were trained on all of these frames, so recall here is in-sample and only checks the serving path.</dd>
+      <dt>Hanna Hammock, FL</dt><dd>FLAME 3 nadir plots, prescribed burn on Feb 28, 2023, Autel EVO II Dual 640T. 1,353 RGB frames across pre-burn, during-burn and post-burn flights. The detectors never saw this site.</dd>
+      <dt>Detectors</dt><dd>DINOv2-B with LoRA (strong augmentation), and DINOv2-g with QLoRA. Both read one RGB frame at 308 by 252 and output a fire probability; the operating threshold is the one picked for 98% recall in training.</dd>
+      <dt>GPUs</dt><dd>T4, L4 and RTX PRO 6000 on a cloud GPU host, one server per GPU, identical server code.</dd>
+    </dl>
+  </div>
+  <div class="prose">
+    <p><strong>Florida labels.</strong> The set has no fire or no-fire labels, so a during-burn frame counts as fire when any pixel of its radiometric thermal frame reaches 80 C (raw counts converted with the dataset's formula, C = DN x 0.1 - 275). Pre-burn frames are clean negatives. Post-burn frames have no thermal data and some still show smoke or a live flame, and plot 3 has no burn phase recorded, so both are reported as a flag rate and are not scored.</p>
+    <p><strong>Two Florida inputs.</strong> The thermal camera sees the middle 44% by 47% of the RGB frame (from the lens focal lengths in EXIF, confirmed by matching thermal edges to RGB edges). The crop matches what the detectors were trained on and what the thermal label describes. The full frame is what a drone would actually send.</p>
+  </div>
+</div>
+
+<h2>Time to process a whole burn</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>Server-side, the RTX PRO 6000 processes a whole burn in 4 to 12 seconds and the T4 in 10 to 86 seconds. Most of the end-to-end time is uploading frames, so the GPU only changes the picture for the large DINOv2-g model.</p></div>
+<div class="prose">
+  <p>Frames were sent in batches of 32, one request at a time with nothing overlapping, after an untimed warm-up. <strong>End-to-end</strong> is the client's wall time for the whole set, upload included. <strong>Server-side</strong> is the time the request spent inside the model server, split into JPEG decode, resize and normalize on the CPU, and the GPU forward pass timed with a CUDA sync on each side.</p>
+</div>
+<figure>
+  %%chart%%
+  <figcaption>Server-side milliseconds per frame on the 1,353 Florida frames (thermal-view crop). The CPU steps cost about the same on every GPU, so they decide the total once the GPU is fast.</figcaption>
+</figure>
+%%timing%%
+%%resize_line%%
+
+<h2>How the detectors hold up on a new site</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>On Florida, a site neither detector trained on, they catch nearly every fire that covers at least 0.5% of the thermal view and miss almost every smaller one when they see only the thermal-view crop. Given the full RGB frame they catch most of those too, and no pre-burn frame was flagged in any run.</p></div>
+<div class="prose">
+  <p>Recall is on the 797 Florida frames whose thermal view has fire. Clean negatives are the 170 pre-burn frames plus 21 during-burn frames with no pixel at 80 C or above (takeoff over smoke, and frames shot on the ground during a battery swap). All runs on the RTX PRO 6000; predictions match across GPUs.</p>
+</div>
+%%acc_table%%
+<p class="result"><strong>Result:</strong> The thermal-view crop gives 0.79 to 0.81 recall with no false alarms. The full frame raises recall to 0.986 and 0.994 and flags 14 or 15 burn frames with no hot pixel in the thermal view, mostly takeoff frames with smoke at the edge of the wider shot.</p>
+<h3>Recall by size of the fire in the thermal view</h3>
+<div class="prose"><p>Every missed fire frame in the crop runs is a small fire. Almost all are in plot 2, frames 838 to 1147, early in that burn.</p></div>
+%%bucket_table%%
+<p class="result"><strong>Result:</strong> Recall is 0.92 or better once the fire covers 0.5% of the thermal view. Below that the crop catches 0 to 3% of fire frames, and the full frame catches 90 to 100%.</p>
+
+<h2>Does 4-bit (NVFP4) help on the RTX PRO 6000?</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>Only for the large model. Over the full Florida burn, NVFP4 cut DINOv2-g's GPU step from 3.6 to 2.0 ms per frame with no recall lost. DINOv2-B got no faster and changed more decisions. FP8 is a safe middle step, and every low-precision mode needs torch.compile and batches to pay off.</p></div>
+<div class="prose">
+  <p>NVFP4 stores weights and activations in 4 bits with a shared scale per block of 16 values. Only Blackwell GPUs run it (RTX PRO 6000, B200), so the T4 and L4 are out. The tests below used torchao 0.18 with the MSLK kernels on torch 2.13 and quantized every Linear layer of the encoder; the patch embedding, layer norms and the classifier head stay in 16 or 32 bit.</p>
+</div>
+<h3>GPU time per frame and score drift, measured on the RTX PRO 6000</h3>
+%%probe_table%%
+<p class="sub">Milliseconds per frame for the encoder forward pass. "Compiled" uses torch.compile, which fuses the step that quantizes activations on the fly; eager mode runs it as separate kernels. Drift is measured on 64 real frames (32 Sycan, 32 Florida) at the served threshold. Per-row FP8 scaling uses a CUTLASS kernel that fails to start on this GPU.</p>
+<p class="result"><strong>Result:</strong> Compiled DINOv2-g runs at 3.27 ms per frame in FP16, 2.33 in FP8 and 1.81 in NVFP4 at batch 32. DINOv2-B stays near 0.3 ms in every precision. At batch 1 every 8-bit and 4-bit mode is slower than FP16.</p>
+<h3>Recall over the full burns, compiled FP16 against compiled NVFP4</h3>
+%%fb_table%%
+<p class="result"><strong>Result:</strong> NVFP4 recall stays within 0.01 of compiled FP16 on every set, and DINOv2-g changes only 3 to 7 of 1,353 decisions.</p>
+<p class="sub">Frames whose fire or no-fire decision differs between FP16 and NVFP4: %%flip_text%%.</p>
+<h3>Cross-validated check on a B200 (training protocol)</h3>
+<div class="prose"><p>Same question under the project's evaluation protocol: 5-fold cross-validation over 60-second capture windows with a 30-second purge, models trained in 16 bit, then scored in each precision. Sycan Marsh frames only.</p></div>
+%%b200_table%%
+<p class="result"><strong>Result:</strong> Under the training protocol every precision scores 0.990 to 0.995 recall with no false alarms, so 4-bit does not cost accuracy on the training site either.</p>
+
+<h2>Kai 0.6B as the decision layer</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>Kai repeats the detector it reads, agreeing on 98 to 99% of frames, and never raised recall, even when told about a hot spot the detectors missed. It is a good fit for once-per-brief judgments, not for deciding fire status frame by frame.</p></div>
+<div class="prose">
+  <p>Kai (Decision 2.0 Kai 0.6B, Apache 2.0) is a small text-only decision model. It cannot look at images, so the gateway writes each frame's evidence as sentences and Kai answers typed questions about them. Here it answered the gateway's status question (fire, smoke only, none, unclear) and a yes or no "active fire" question for every frame, and the decision is "status is fire".</p>
+  <p>It ran as a small HTTP server on one L4 in bf16, using the model's own Transformers loader with the weights pinned to the same Hugging Face revision the gateway uses, and the same server on an RTX PRO 6000. Both made the same decision on all 10,332 frame and evidence combinations.</p>
+  <p class="sub">Example input for a frame the detector missed: "A single wildfire drone frame was analyzed. The trained fire detector is very confident there is no fire. A general image model is very confident there is no fire. The thermal camera detects fire-temperature heat: 2 pixels are above 80 C (0.00061% of the frame), and the hottest pixel is 98 C." Kai's answer: none (P(fire) 0.07).</p>
+</div>
+%%kai_table%%
+<p class="sub">Detector rows are the RTX PRO 6000 full-burn runs. Kai rows are the L4 server. Sycan detector evidence is in-sample, so those rows only check the plumbing. On Florida the fire labels come from the same thermal frames Kai reads in the thermal rows, so those rows test whether Kai uses thermal evidence, not accuracy. An earlier wording printed small hot areas as "0.00% of the frame"; the rows shown use the corrected wording, and the result did not change.</p>
+<p class="result"><strong>Result:</strong> On the Florida crop Kai scores 0.798 against the detector's 0.806, and adding the thermal reading brings it back to exactly the detector's 0.806, with the same 155 small fires missed.</p>
+%%kai_lat%%
+<p class="result"><strong>Result:</strong> The RTX PRO 6000 roughly halves Kai's server time (17 ms against 31 ms per decision), and both GPUs gave identical answers on every frame.</p>
+<p class="sub">Round trips are from a home connection; the RTX server ran in a farther region. The Kai server answers one request at a time and takes one frame per request, so Kai cannot batch frames the way the detectors do.</p>
+
+<h2>What 60 FPS footage would mean</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>A 25-minute burn at 60 FPS is about 90,700 frames. One RTX PRO 6000 keeps up with a live stream using either detector in 16 bit, while the T4 and L4 cannot with DINOv2-g. Fire changes slowly, so sampling 1 to 2 frames per second is enough for a brief.</p></div>
+<div class="prose">
+  <p>The Florida plot 1 burn was flown for 25.2 minutes, which is %%frames60%% frames at 60 FPS. Plot 2 was in the air for 43 minutes (about 156,000 frames), and the whole Florida day comes to about 367,000. A detector keeps up with one live 60 FPS stream when each frame finishes in under 16.7 ms.</p>
+</div>
+%%proj_table%%
+<p class="result"><strong>Result:</strong> At 16.7 ms per frame for one live stream, every RTX PRO 6000 setup fits; DINOv2-g on the T4 or L4 does not. NVFP4 mainly helps when one GPU serves several streams.</p>
+<p class="sub">Server-side rates come from the measured per-frame time with requests sent one at a time; running requests in parallel would overlap the CPU steps with the GPU and raise them.</p>
+
+<h2>Method notes</h2>
+<ul class="prose">
+  <li>Sycan recall is in-sample because the served detectors were trained on all 738 frames. The out-of-sample Sycan numbers are in the cross-validation table above and in the earlier baseline report.</li>
+  <li>End-to-end times include the upload from a home connection (about 1.7 MB/s up) and vary run to run with that link. Compare GPUs on the server-side columns.</li>
+  <li>The compiled variants always run batches of 32 and pad short batches with blank frames, so their GPU time for a partial last batch includes the padding.</li>
+  <li>Florida fire labels come from thermal frames. A fire visible in the RGB frame outside the thermal camera's view is not labeled, which is why full-frame runs flag some frames the labels call clean.</li>
+  <li>Data: FLAME 3 (Hopkins et al., 2024, arXiv 2412.02831; IEEE DataPort 10.21227/w0mz-aq48) and the FLAME 3 nadir thermal plot subset (Tall Timbers Research Station, Hanna Hammock burn).</li>
+</ul>
+</main>

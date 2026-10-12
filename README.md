@@ -38,14 +38,50 @@ FLAME 3 requires citation per its dataset terms (see Acknowledgements). The Bore
 - **Spread direction/trend:** agreement with ground truth (accuracy and Cohen's kappa) versus the deterministic baseline.
 - **Product goal:** the brief should be readable and actionable in well under the time it takes to review the raw clip.
 
+## Recon gateway (Milestone 2)
+
+The pipeline that produces the brief lives in `src/recon_gateway/`. For a sequence of frames, the gateway:
+
+1. runs the fine-tuned fire detector, a CLIP second opinion and the thermal tools on every frame;
+2. tracks the hot area for trend and direction;
+3. has a vision LLM check a few frames and write the brief as schema-checked JSON;
+4. checks the brief against the measurements, so unsupported claims become "indeterminate".
+
+Every model call goes through one LiteLLM gateway. How it works: [`docs/gateway.md`](docs/gateway.md).
+Example output: [`examples/briefs/`](examples/briefs/).
+
+Results so far:
+
+| Experiment | Question | Report |
+|---|---|---|
+| [`experiments/flame3-baselines`](experiments/flame3-baselines/) | Which detector and protocol for fire/no-fire on FLAME 3 | `report/flame3_results.html` |
+| [`experiments/full-burn-benchmark`](experiments/full-burn-benchmark/) | How fast and how accurate is the detector over a whole burn, on which GPU and precision, and on a site it never saw | `report/full_burn_report.html` |
+| [`experiments/gateway-model-trials`](experiments/gateway-model-trials/) | Which LLM build should run the gateway, should a decision model make the fire call, and does an observer guidance prompt help | `report/gateway_model_trials.html` |
+
+Main findings so far:
+
+- **Thermal:** with thermal data, every Qwen3.8 build gets fire status right on every thermal brief.
+- **Small RGB-only fires** are the open problem. The detectors and every LLM's own call miss most of them. The
+  measurement rule on guided BF16 image checks caught 4 of 7 with no false alarms, but it needs more no-fire RGB footage
+  before it can override the writeup.
+- **Speed:** a whole burn takes seconds of GPU time, and uploads dominate end-to-end time.
+
 ## Repository structure
 
 ```
 .
-├── .github/workflows/ci.yml   # continuous integration smoke test
+├── .github/workflows/ci.yml   # continuous integration (pytest)
+├── src/recon_gateway/         # the gateway: tools, agent loop, brief schema, policy checks, CLI
+├── gateway/                   # LiteLLM proxy config, request logging, route checks
+├── serving/                   # model servers (fire classifier, Kai, Clef) and vLLM settings
+├── deploy/                    # hosted deployment and training-job configs (see deploy/README.md)
+├── training/                  # detector fine-tuning (LoRA/QLoRA, purged CV) and the precision study
+├── experiments/               # baselines, full-burn benchmark, gateway model trials (scripts, results, reports)
+├── examples/briefs/           # sample briefs
+├── docs/                      # design notes
+├── webapp/                    # replay console demo
 ├── scripts/                   # helper scripts
-├── src/                       # source code (added in Milestone 2)
-├── tests/                     # tests, incl. the CI smoke test
+├── tests/                     # smoke test and offline gateway tests
 ├── requirements.txt
 ├── README.md
 ├── CONTRIBUTING.md
@@ -55,23 +91,31 @@ FLAME 3 requires citation per its dataset terms (see Acknowledgements). The Bore
 
 ## Getting started
 
-> Note: the pipeline is under active development. This section will expand as the CLI tool takes shape.
-
 ```bash
-# clone
 git clone https://github.com/stephenyu2/ai-firefighter-recon
 cd ai-firefighter-recon
-
-# (recommended) create a virtual environment
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-
-# install
+source .venv/bin/activate
 pip install -r requirements.txt
-
-# run the tests
 pytest
 ```
+
+Use Python 3.11 (what CI runs). The tests run offline. To make a brief you need:
+
+- a fire classifier server and a vision LLM (see [`serving/`](serving/));
+- the LiteLLM gateway in front of them (see [`gateway/`](gateway/)). The command below assumes it; the gateway also turns
+  off Qwen3.8 thinking text on every request.
+
+```bash
+export RECON_CLASSIFIER_URL=http://127.0.0.1:4000/recon/classifier
+export RECON_LLM_URL=http://127.0.0.1:4000/v1
+export RECON_GATEWAY_KEY=your-gateway-key
+PYTHONPATH=src python -m recon_gateway --frames path/to/rgb --tiffs path/to/tiffs --model qwen38-27b-fp8 --out brief
+```
+
+This writes `brief.md` and `brief.json`. To skip the gateway, `unset RECON_GATEWAY_KEY` (it takes precedence), point the URLs at
+the servers, set `RECON_API_KEY` if they need one, and pass the served model name (`--model Qwen/Qwen3.8-27B`); thinking then stays at the server's default. Datasets go under `data/` (git-ignored) or wherever `RECON_DATA_ROOT`
+points.
 
 ## Team and roles
 

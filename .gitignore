@@ -22,7 +22,11 @@ data/
 *.pt
 *.pth
 *.onnx
+*.safetensors
 checkpoints/
+ckpts/
+serving/fire_classifier/weights/
+.venv-*/
 
 # Notebooks
 .ipynb_checkpoints/

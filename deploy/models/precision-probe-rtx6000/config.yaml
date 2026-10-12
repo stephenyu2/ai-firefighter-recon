@@ -1,0 +1,10 @@
+model_name: recon-precision-probe-rtx6000
+python_version: py312
+requirements_file: ./requirements.txt
+resources:
+  accelerator: RTX_PRO_6000
+  use_gpu: true
+runtime:
+  predict_concurrency: 4
+environment_variables:
+  PROBE_MODES: fp16,fp8
