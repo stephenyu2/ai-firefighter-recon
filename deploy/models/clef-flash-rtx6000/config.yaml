@@ -1,0 +1,24 @@
+model_name: recon-clef-flash-rtx6000
+description: "Clef-Flash 9B decision model with image input, BF16, release code"
+python_version: py312
+requirements:
+  - torch==2.11.0
+  - torchvision==0.26.0
+  - transformers==5.10.2
+  - accelerate>=1.0
+  - safetensors>=0.5
+  - pillow>=10.0
+  - huggingface_hub>=0.30
+weights:
+  - source: "hf://Cloudflare/clef-flash@8b2e5fd17c09fd49bc2880b805d5323ec7ff4ff3"
+    mount_location: "/models/clef"
+environment_variables:
+  CLEF_PATH: /models/clef
+  HF_HUB_OFFLINE: "1"
+resources:
+  accelerator: RTX_PRO_6000
+  use_gpu: true
+runtime:
+  predict_concurrency: 4
+  health_checks:
+    startup_threshold_seconds: 1800
