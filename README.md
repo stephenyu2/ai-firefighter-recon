@@ -122,7 +122,7 @@ points.
 | Member | Area |
 | --- | --- |
 | Caroline O'Sullivan | Data (FLAME 3 + Boreal acquisition, preprocessing, splits); Documentation / repository |
-| Spencer Thiessen | Modeling (backbone selection and comparison, fine-tuning, recall-tuned thresholding) |
+| Spencer Theissen-Vang | Modeling (backbone selection and comparison, fine-tuning, recall-tuned thresholding) |
 | Stephen Yu | Modeling (deterministic mask-tracking baseline; Molmo 2 integration and prompting) |
 | Joe Lucas | Evaluation (metrics, test set, trend scoring); Application (assembling the brief; demo) |
 
