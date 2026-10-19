@@ -1,0 +1,649 @@
+{
+ "single_frame": {
+  "d3": {
+   "seed0": {
+    "recall": 0.4167,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9763,
+    "median_s": 0.399,
+    "small_fires": 0.475
+   },
+   "seed0_guided": {
+    "recall": 0.425,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9778,
+    "median_s": 0.496,
+    "small_fires": 0.45
+   },
+   "seed1": {
+    "recall": 0.3917,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9647,
+    "median_s": 0.401,
+    "small_fires": 0.475
+   },
+   "seed1_guided": {
+    "recall": 0.3917,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9724,
+    "median_s": 0.495,
+    "small_fires": 0.5
+   },
+   "repeat_answers_changed": "0 of 240"
+  },
+  "d3_rtx": {
+   "seed0": {
+    "recall": 0.4167,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.976,
+    "median_s": 0.526,
+    "small_fires": 0.475
+   },
+   "seed0_guided": {
+    "recall": 0.425,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9778,
+    "median_s": 0.588,
+    "small_fires": 0.45
+   },
+   "seed1": {
+    "recall": 0.4,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9649,
+    "median_s": 0.52,
+    "small_fires": 0.475
+   },
+   "seed1_guided": {
+    "recall": 0.3917,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.972,
+    "median_s": 0.586,
+    "small_fires": 0.5
+   },
+   "repeat_answers_changed": "0 of 240"
+  },
+  "d3_flash": {
+   "seed0": {
+    "recall": 0.3083,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9752,
+    "median_s": 0.452,
+    "small_fires": 0.075
+   },
+   "seed0_guided": {
+    "recall": 0.3167,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9626,
+    "median_s": 0.542,
+    "small_fires": 0.075
+   },
+   "seed1": {
+    "recall": 0.25,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.981,
+    "median_s": 0.443,
+    "small_fires": 0.05
+   },
+   "seed1_guided": {
+    "recall": 0.25,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9646,
+    "median_s": 0.54,
+    "small_fires": 0.05
+   },
+   "repeat_answers_changed": "0 of 240"
+  },
+  "d3_mini": {
+   "seed0": {
+    "recall": 0.25,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9276,
+    "median_s": 0.259,
+    "small_fires": 0.075
+   },
+   "seed0_guided": {
+    "recall": 0.25,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9537,
+    "median_s": 0.385,
+    "small_fires": 0.05
+   },
+   "seed1": {
+    "recall": 0.2417,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9178,
+    "median_s": 0.26,
+    "small_fires": 0.075
+   },
+   "seed1_guided": {
+    "recall": 0.2167,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9505,
+    "median_s": 0.391,
+    "small_fires": 0.0
+   },
+   "repeat_answers_changed": "0 of 240"
+  },
+  "clef": {
+   "seed0": {
+    "recall": 0.3167,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9736,
+    "median_s": 0.649,
+    "small_fires": 0.3
+   },
+   "seed0_guided": {
+    "recall": 0.55,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9751,
+    "median_s": 0.718,
+    "small_fires": 0.25
+   },
+   "seed1": {
+    "recall": 0.3083,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9657,
+    "median_s": 0.652,
+    "small_fires": 0.375
+   },
+   "seed1_guided": {
+    "recall": 0.4917,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9666,
+    "median_s": 0.718,
+    "small_fires": 0.3
+   }
+  },
+  "clef_flash": {
+   "seed0": {
+    "recall": 0.3083,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9721,
+    "median_s": 0.542,
+    "small_fires": 0.075
+   },
+   "seed0_guided": {
+    "recall": 0.3917,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9556,
+    "median_s": 0.571,
+    "small_fires": 0.075
+   },
+   "seed1": {
+    "recall": 0.2833,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9686,
+    "median_s": 0.548,
+    "small_fires": 0.125
+   },
+   "seed1_guided": {
+    "recall": 0.35,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9556,
+    "median_s": 0.566,
+    "small_fires": 0.05
+   }
+  },
+  "qwen38-27b-bf16": {
+   "seed0": {
+    "recall": 0.4,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9424,
+    "median_s": 0.494,
+    "small_fires": 0.4
+   },
+   "seed0_guided": {
+    "recall": 0.5333,
+    "false_alarms": 0,
+    "negatives": 120,
+    "auc": 0.9749,
+    "median_s": 0.55,
+    "small_fires": 0.625
+   },
+   "seed1": {
+    "recall": 0.3833,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9274,
+    "median_s": 0.499,
+    "small_fires": 0.425
+   },
+   "seed1_guided": {
+    "recall": 0.4833,
+    "false_alarms": 0,
+    "negatives": 101,
+    "auc": 0.9514,
+    "median_s": 0.547,
+    "small_fires": 0.65
+   }
+  }
+ },
+ "rerun_reproduces_writeup_calls": "20 of 20",
+ "cascade": {
+  "d3": {
+   "escalated": [
+    "FL-B_plot2_smallfire_thermal",
+    "FL-G_plot2_smallfire_rgb",
+    "FL-K_plot2_smallfire_rgb",
+    "FL-L_plot2_smallfire_rgb",
+    "FL-M_plot2_smallfire_rgb",
+    "SY-2_5"
+   ],
+   "decided_right": "11 of 14",
+   "confident_misses": [
+    [
+     "FL-H_plot2_smallfire_rgb",
+     0.9813,
+     0.0038
+    ],
+    [
+     "FL-I_plot2_smallfire_rgb",
+     0.9773,
+     0.0108
+    ],
+    [
+     "FL-J_plot2_smallfire_rgb",
+     0.9067,
+     0.101
+    ]
+   ],
+   "decided_median_s": 6.55,
+   "escalated_median_s": 49.7,
+   "failed_attempts": 0
+  },
+  "d3_mini": {
+   "escalated": [
+    "FL-B_plot2_smallfire_thermal",
+    "FL-C_plot2_burn_thermal",
+    "FL-G_plot2_smallfire_rgb",
+    "SY-2_5"
+   ],
+   "decided_right": "10 of 16",
+   "confident_misses": [
+    [
+     "FL-H_plot2_smallfire_rgb",
+     0.9375,
+     0.0146
+    ],
+    [
+     "FL-I_plot2_smallfire_rgb",
+     0.9479,
+     0.0124
+    ],
+    [
+     "FL-J_plot2_smallfire_rgb",
+     0.9402,
+     0.0115
+    ],
+    [
+     "FL-K_plot2_smallfire_rgb",
+     0.8601,
+     0.0502
+    ],
+    [
+     "FL-L_plot2_smallfire_rgb",
+     0.9466,
+     0.0134
+    ],
+    [
+     "FL-M_plot2_smallfire_rgb",
+     0.8566,
+     0.0531
+    ]
+   ],
+   "decided_median_s": 4.3,
+   "escalated_median_s": 50.5,
+   "failed_attempts": 0
+  }
+ },
+ "sequences": {
+  "d3 all8+guide": {
+   "right": 13,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 10.96
+  },
+  "d3 ends": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 2.87
+  },
+  "d3 vision+guide": {
+   "right": 15,
+   "small": 2,
+   "false_alarms": 0,
+   "median_s": 11.02
+  },
+  "d3_flash all8+guide": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 8.06
+  },
+  "d3_flash ends": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 2.16
+  },
+  "d3_flash vision+guide": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 8.11
+  },
+  "d3_mini all8+guide": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 6.26
+  },
+  "d3_mini ends": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 1.61
+  },
+  "d3_mini vision+guide": {
+   "right": 11,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 6.21
+  },
+  "d3_rtx all8+guide": {
+   "right": 13,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 3.88
+  },
+  "d3_rtx ends": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 1.24
+  },
+  "d3_rtx vision+guide": {
+   "right": 15,
+   "small": 2,
+   "false_alarms": 0,
+   "median_s": 3.87
+  },
+  "kai ends (gateway trials)": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 0.098
+  },
+  "clef ends (gateway trials)": {
+   "right": 11,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 0.923
+  },
+  "clef_flash ends (gateway trials)": {
+   "right": 13,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 0.707
+  },
+  "qwen38-27b-bf16 writeup call (gateway trials)": {
+   "right": 14,
+   "small": 1,
+   "false_alarms": 0
+  },
+  "measurement rule, guided bf16 checks (gateway trials)": {
+   "right": 17,
+   "small": 4,
+   "false_alarms": 0
+  },
+  "qwen38-27b-bf16 writeup call (rerun)": {
+   "right": 14,
+   "small": 1,
+   "false_alarms": 0
+  },
+  "d3 in-brief decider": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 2.18
+  },
+  "d3_mini in-brief decider": {
+   "right": 12,
+   "small": 0,
+   "false_alarms": 0,
+   "median_s": 1.14
+  },
+  "cascade d3 (llm final call)": {
+   "right": 15,
+   "small": 2,
+   "false_alarms": 0
+  },
+  "cascade d3 (rule may raise fire)": {
+   "right": 17,
+   "small": 4,
+   "false_alarms": 0
+  },
+  "cascade d3_mini (llm final call)": {
+   "right": 13,
+   "small": 0,
+   "false_alarms": 0
+  },
+  "cascade d3_mini (rule may raise fire)": {
+   "right": 14,
+   "small": 1,
+   "false_alarms": 0
+  }
+ },
+ "full_burn": {
+  "windows": 170,
+  "images": 1348,
+  "errors": 0,
+  "truth_to_call": {
+   "fire -> fire": 101,
+   "unscored -> no fire or smoke": 33,
+   "unscored -> fire": 11,
+   "unscored -> smoke only": 2,
+   "unscored -> indeterminate": 1,
+   "no_fire -> no fire or smoke": 22
+  },
+  "escalated": 38,
+  "escalated_why": {
+   "fire, d3 said fire": 20,
+   "unscored, d3 said no fire or smoke": 8,
+   "unscored, d3 said smoke only": 3,
+   "fire, d3 said no fire or smoke": 6,
+   "fire, d3 said indeterminate": 1
+  },
+  "small_fire_windows": "21 of 21 called fire",
+  "total_min": 49.5,
+  "s_per_image": 2.2,
+  "s_per_window": 17.5,
+  "failed_attempts": 0,
+  "by_part": {
+   "decision": {
+    "windows": 132,
+    "images": 1048,
+    "escalated": 0,
+    "calls": {
+     "fire": 77,
+     "no fire or smoke": 55
+    },
+    "minutes": 15.8,
+    "s_per_image": 0.91,
+    "median_window_s": 5.6,
+    "median_d3_call_s": 2.25
+   },
+   "escalated": {
+    "windows": 38,
+    "images": 300,
+    "escalated": 38,
+    "calls": {
+     "fire": 35,
+     "smoke only": 2,
+     "indeterminate": 1
+    },
+    "minutes": 33.7,
+    "s_per_image": 6.73,
+    "median_window_s": 53.0,
+    "median_d3_call_s": 2.44
+   },
+   "plot1": {
+    "windows": 64,
+    "images": 508,
+    "escalated": 12,
+    "calls": {
+     "fire": 44,
+     "no fire or smoke": 18,
+     "smoke only": 1,
+     "indeterminate": 1
+    },
+    "minutes": 19.4,
+    "s_per_image": 2.29,
+    "median_window_s": 6.0,
+    "median_d3_call_s": 2.25
+   },
+   "plot1 duringburn": {
+    "windows": 37,
+    "images": 296,
+    "escalated": 3,
+    "calls": {
+     "fire": 37
+    },
+    "minutes": 11.1,
+    "s_per_image": 2.24,
+    "median_window_s": 6.2,
+    "median_d3_call_s": 2.25
+   },
+   "plot1 postburn": {
+    "windows": 17,
+    "images": 132,
+    "escalated": 9,
+    "calls": {
+     "no fire or smoke": 8,
+     "fire": 7,
+     "smoke only": 1,
+     "indeterminate": 1
+    },
+    "minutes": 7.8,
+    "s_per_image": 3.57,
+    "median_window_s": 42.7,
+    "median_d3_call_s": 2.31
+   },
+   "plot1 preburn": {
+    "windows": 10,
+    "images": 80,
+    "escalated": 0,
+    "calls": {
+     "no fire or smoke": 10
+    },
+    "minutes": 0.5,
+    "s_per_image": 0.38,
+    "median_window_s": 2.9,
+    "median_d3_call_s": 2.13
+   },
+   "plot2": {
+    "windows": 91,
+    "images": 723,
+    "escalated": 26,
+    "calls": {
+     "no fire or smoke": 22,
+     "fire": 68,
+     "smoke only": 1
+    },
+    "minutes": 29.3,
+    "s_per_image": 2.43,
+    "median_window_s": 6.4,
+    "median_d3_call_s": 2.3
+   },
+   "plot2 duringburn": {
+    "windows": 65,
+    "images": 520,
+    "escalated": 24,
+    "calls": {
+     "no fire or smoke": 1,
+     "fire": 64
+    },
+    "minutes": 26.4,
+    "s_per_image": 3.05,
+    "median_window_s": 7.2,
+    "median_d3_call_s": 2.34
+   },
+   "plot2 postburn": {
+    "windows": 15,
+    "images": 116,
+    "escalated": 2,
+    "calls": {
+     "no fire or smoke": 10,
+     "fire": 4,
+     "smoke only": 1
+    },
+    "minutes": 2.4,
+    "s_per_image": 1.22,
+    "median_window_s": 3.0,
+    "median_d3_call_s": 2.26
+   },
+   "plot2 preburn": {
+    "windows": 11,
+    "images": 87,
+    "escalated": 0,
+    "calls": {
+     "no fire or smoke": 11
+    },
+    "minutes": 0.5,
+    "s_per_image": 0.38,
+    "median_window_s": 2.9,
+    "median_d3_call_s": 2.17
+   },
+   "plot3": {
+    "windows": 15,
+    "images": 117,
+    "escalated": 0,
+    "calls": {
+     "no fire or smoke": 15
+    },
+    "minutes": 0.7,
+    "s_per_image": 0.38,
+    "median_window_s": 2.9,
+    "median_d3_call_s": 2.32
+   },
+   "plot3 unknown": {
+    "windows": 15,
+    "images": 117,
+    "escalated": 0,
+    "calls": {
+     "no fire or smoke": 15
+    },
+    "minutes": 0.7,
+    "s_per_image": 0.38,
+    "median_window_s": 2.9,
+    "median_d3_call_s": 2.32
+   }
+  }
+ }
+}
