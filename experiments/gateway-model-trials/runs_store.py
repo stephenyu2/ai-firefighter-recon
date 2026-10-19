@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 
-RESULTS = Path(__file__).parent / "results"
+RESULTS = Path(os.environ.get("RESULTS_DIR", Path(__file__).parent / "results"))  # RESULTS_DIR: another experiment's results
 _packed = {}
 
 

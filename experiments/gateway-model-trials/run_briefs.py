@@ -20,8 +20,8 @@ SEQS = json.loads((HERE / "sequences.json").read_text())
 INDEX = HERE.parents[1] / "training/flame3-lora/index.csv"
 DATA = Path(os.environ.get("RECON_DATA_ROOT", HERE.parents[1] / "data"))
 FLAME_ROOT = DATA / "flame3_cv"
-RESULTS = HERE / "results"
-DECIDERS = ["kai", "clef", "clef_flash"]
+RESULTS = Path(os.environ.get("RESULTS_DIR", HERE / "results"))  # RESULTS_DIR: write elsewhere (the decision-cascade rerun does)
+DECIDERS = [d for d in os.environ.get("DECIDERS", "kai,clef,clef_flash").split(",") if d]
 LOCK = threading.Lock()
 G = os.environ.get("RECON_GUIDANCE", "")  # "1"/"all" = every placement; or a comma list of planner, decide, writeup
 _bad = {p.strip() for p in G.split(",") if p.strip()} - set(agent.GUIDANCE_PLACES) - {"1", "all", "true", "0"}
