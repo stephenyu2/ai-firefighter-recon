@@ -77,6 +77,7 @@ def _slim(probe):
 
 def _measurement_view(state):
     det, sp = state["detection"], state["spread"]
+    extra = {"other_evidence": state["extra"]} if state.get("extra") else {}
     keep = ("trend", "trend_supported", "trend_reason", "direction", "direction_supported", "direction_reason",
             "hot_percent_start", "hot_percent_end", "camera_shift_fraction")
     return {"units": det["units"], "frames": det["frames"],
@@ -84,7 +85,7 @@ def _measurement_view(state):
             "disagreements": det["disagreements"],
             "spread": {k: sp[k] for k in keep if k in sp} if sp else {"note": "not run: fewer than 3 thermal frames"},
             "image_probes": {"fixed": {f: _slim(p) for f, p in state["probes"].items()},
-                             "planner": {f: _slim(p) for f, p in state["planner_probes"].items()}}}
+                             "planner": {f: _slim(p) for f, p in state["planner_probes"].items()}}, **extra}
 
 
 def _canon(obj):
@@ -160,15 +161,17 @@ def _plan(ep, seq, state, system_extra, decide_system):
             "turns": turns, "transcript": msgs}
 
 
-def run(seq, mode="agent", llm_model=None, deciders=None, guidance=None, run_tag=None):
+def run(seq, mode="agent", llm_model=None, deciders=None, guidance=None, run_tag=None, probe_all=False, extra_evidence=None):
     """mode "agent": the planner picks extra probes; "pipeline": fixed probes only.
     deciders: names from recon_gateway.deciders (kai, clef, clef_flash), each making its own fire-status call on the
-    measured evidence. Returns the final brief plus the raw brief, the LLM's own call, the measured call and a full trace."""
+    measured evidence. probe_all: run the fixed image probes on every frame instead of the first, middle and last
+    (the cascade's deeper pass). extra_evidence: a dict shown to the planner and writeup as "other_evidence".
+    Returns the final brief plus the raw brief, the LLM's own call, the measured call and a full trace."""
     src_id = seq.id
     seq, id_map = alias(seq)
     ep = T.Endpoints(llm_model=llm_model, run_tag=run_tag)
     flags = guidance_flags(guidance)
-    state = {"cache": {}, "trace": [], "probes": {}, "planner_probes": {}}
+    state = {"cache": {}, "trace": [], "probes": {}, "planner_probes": {}, "extra": extra_evidence}
     step = lambda tool, t0, **kw: state["trace"].append({"step": len(state["trace"]) + 1, "tool": tool, "seconds": round(time.time() - t0, 3), **kw})
 
     t0 = time.time(); state["detection"] = T.detect_fire(ep, seq, state["cache"]); step("detect_fire", t0, by="gateway")
@@ -177,7 +180,7 @@ def run(seq, mode="agent", llm_model=None, deciders=None, guidance=None, run_tag
     step("track_spread", t0, by="gateway")
     n = len(seq.frames)
     t0 = time.time()
-    for i in sorted({0, n // 2, n - 1}):
+    for i in (range(n) if probe_all else sorted({0, n // 2, n - 1})):
         state["probes"][seq.frames[i].id] = T.decide(ep, seq.frames[i], PROBE_QUESTIONS, system=WATCH_FOR if flags["decide"] else None)
     step("fixed_probes", t0, by="gateway", frames=list(state["probes"]))
 
