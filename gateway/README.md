@@ -38,6 +38,8 @@ export RECON_CLASSIFIER_URL=http://127.0.0.1:4000/recon/classifier
 export RECON_KAI_URL=http://127.0.0.1:4000/recon/kai
 export RECON_CLEF_URL=http://127.0.0.1:4000/recon/clef
 export RECON_CLEF_FLASH_URL=http://127.0.0.1:4000/recon/clef-flash
+export RECON_D3_URL=http://127.0.0.1:4000/recon/d3
+export RECON_D3_MINI_URL=http://127.0.0.1:4000/recon/d3-mini
 ```
 
 Without the proxy, unset `RECON_GATEWAY_KEY` (it takes precedence), set `RECON_API_KEY` (and `RECON_AUTH_SCHEME`

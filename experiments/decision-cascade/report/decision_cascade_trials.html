@@ -1,0 +1,381 @@
+<title>Decision Cascade Trials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column of prose; tables and the flow diagram run wider inside their own scroll boxes. */
+:root {
+  --bg: #f4f5f6;
+  --surface: #ffffff;
+  --ink: #18212b;
+  --muted: #586472;
+  --rule: #d6dbe0;
+  --accent: #a3420f;
+  --accent-soft: #f6e4d8;
+  --llm: #2f5d8a;
+  --llm-soft: #dfe9f3;
+  --ok: #2f6b3a;
+  --bad: #a8322a;
+  --display: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171d; --surface: #1a2129; --ink: #e6eaee; --muted: #9aa6b2; --rule: #2e3843;
+    --accent: #f08a4b; --accent-soft: #3a2619; --llm: #7fb0e0; --llm-soft: #1c2a38;
+    --ok: #7cc48a; --bad: #f08a80; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171d; --surface: #1a2129; --ink: #e6eaee; --muted: #9aa6b2; --rule: #2e3843;
+  --accent: #f08a4b; --accent-soft: #3a2619; --llm: #7fb0e0; --llm-soft: #1c2a38;
+  --ok: #7cc48a; --bad: #f08a80; color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body);
+  padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 1000px; margin: 0 auto; display: grid; gap: 8px; }
+.prose { max-width: 68ch; }
+header { display: grid; gap: 6px; padding-bottom: 20px; border-bottom: 2px solid var(--ink); margin-bottom: 12px; }
+.eyebrow { font: 600 13px/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(32px, 6vw, 46px)/1.05 var(--display); margin: 0; text-wrap: balance; }
+h2 { font: 700 26px/1.15 var(--display); margin: 36px 0 4px; text-wrap: balance; }
+h3 { font: 600 18px/1.3 var(--display); margin: 22px 0 6px; letter-spacing: .01em; text-wrap: balance; }
+p, li { margin: 0 0 10px; }
+.meta { color: var(--muted); font-size: 14px; }
+.sub { color: var(--muted); font-size: 13px; }
+.ok { color: var(--ok); font-weight: 600; }
+.bad { color: var(--bad); font-weight: 600; }
+code, .mono { font-family: var(--mono); font-size: .9em; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tw { overflow-x: auto; margin: 8px 0 14px; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font: 600 12px/1.3 var(--body); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; background: var(--bg); }
+tbody tr:last-child td { border-bottom: 0; }
+table.num td:nth-child(n+2) { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.num td .sub { font-family: var(--body); }
+tr.best td { background: var(--accent-soft); }
+.summary { display: grid; gap: 14px; padding-bottom: 8px; }
+.summary h2 { margin: 8px 0 0; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--rule); padding: 14px 16px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.stat b { font: 700 28px/1.05 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; line-height: 1.4; color: var(--muted); }
+.recs { margin: 0; padding-left: 20px; }
+.recs li { margin-bottom: 6px; }
+.takeaway { background: var(--surface); border: 1px solid var(--rule); padding: 12px 16px; margin: 6px 0 10px; display: grid; gap: 2px; max-width: 80ch; }
+.takeaway p { margin: 0; }
+.tk-label { font: 600 12px/1.3 var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.result { margin: -4px 0 16px; font-size: 15px; max-width: 80ch; }
+.result strong { color: var(--accent); font-weight: 600; }
+figure { margin: 10px 0 18px; background: var(--surface); border: 1px solid var(--rule); padding: 16px; }
+.figscroll { overflow-x: auto; }
+figcaption { color: var(--muted); font-size: 14px; margin-top: 10px; max-width: 80ch; }
+svg.flow { display: block; width: 100%; min-width: 820px; height: auto; color: var(--ink); }
+.flow text { font-family: var(--body); fill: var(--ink); }
+.flow .t { font: 600 14px var(--display); letter-spacing: .02em; }
+.flow .s { font-size: 12px; fill: var(--muted); }
+.flow .lab { font: 500 12px var(--mono); fill: var(--ink); }
+.flow .box { fill: var(--surface); stroke: var(--rule); stroke-width: 1.5; }
+.flow .box-d3 { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2; }
+.flow .box-llm { fill: var(--llm-soft); stroke: var(--llm); stroke-width: 2; }
+.flow .gate { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.flow .edge { stroke: var(--ink); stroke-width: 1.6; fill: none; }
+.flow .edge-yes { stroke: var(--accent); stroke-width: 2; fill: none; }
+.flow .edge-no { stroke: var(--llm); stroke-width: 2; fill: none; }
+.flow .edge-dash { stroke: var(--muted); stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; }
+.flow .head { fill: var(--ink); }
+.flow .head-yes { fill: var(--accent); }
+.flow .head-no { fill: var(--llm); }
+.flow .head-dash { fill: var(--muted); }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 16px; margin: 0; font-size: 15px; }
+dt { color: var(--muted); }
+dd { margin: 0; min-width: 0; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.two > div { min-width: 0; }
+.sources { font-size: 14px; }
+.byline { display: flex; flex-wrap: wrap; gap: 2px 16px; font-size: 14px; color: var(--muted); margin-top: 4px; }
+.byline strong { color: var(--ink); font-weight: 600; }
+@media (max-width: 520px) { dl { grid-template-columns: 1fr; } dd { margin-bottom: 6px; } }
+</style>
+
+<main>
+<header>
+  <div class="eyebrow">CIS 5980 · Wildfire reconnaissance · Decision models</div>
+  <h1>Decision Cascade Trials</h1>
+  <div class="meta">I tested two new open decision models, d3 (26B) and d3-mini (4.5B), as the fire-status decider for my recon gateway, compared them with every earlier method, and ran them as a cascade that hands low-confidence calls to Qwen3.8-27B. Scored on the 20 test sequences and on every frame of the Florida burn.</div>
+  <div class="byline"><span>By <strong>Spencer Theissen-Vang</strong></span><span>Experiment design, model deployment, testing, analysis and writeup</span><span>CIS 5980, Fall 2026 · October 18, 2026</span></div>
+</header>
+
+<section class="summary">
+  <h2>Summary</h2>
+  <div class="prose">
+    <p>I tested d3 and d3-mini, the "Decision 3.0" models from the vLLM Semantic Router project. They read images directly and answer typed questions with a probability for every option, without writing text. I compared them with Kai, Clef, Clef-Flash and the Qwen3.8-27B builds on the same frames and sequences as my earlier gateway model trials.</p>
+    <p>Then I built a cascade. d3 looks at all 8 frames of a window and makes the fire call when it is confident; otherwise Qwen3.8-27B takes a deeper look. On the 20 test sequences the cascade ties the best earlier method (17 of 20, 4 of 7 small RGB-only fires, no false alarms). On every frame of the Florida burn it called all 101 fire windows and all 22 clean windows correctly, and it processed the whole day of flying in 49.5 minutes. The gap left is small fires with no thermal data: d3 missed 3 of 7 of those with more than 90% confidence, so a confidence gate cannot catch them.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>101 of 101</b><span>Fire windows called fire on the full Florida burn, with 0 of 22 clean windows flagged</span></div>
+    <div class="stat"><b>17 of 20</b><span>Test sequences right with the cascade (d3 first), tying the best earlier method</span></div>
+    <div class="stat"><b>49.5 min</b><span>To process the whole Florida day: 1,348 images in 170 windows, 2.2 s per image</span></div>
+    <div class="stat"><b>22%</b><span>Of full-burn windows sent to the LLM; d3 decided the rest in a median 5.6 s per window</span></div>
+    <div class="stat"><b>3 of 7</b><span>Small RGB-only fires d3 called "no fire" with over 90% confidence</span></div>
+  </div>
+  <div class="prose">
+    <p style="margin-bottom:6px"><strong>What I recommend</strong></p>
+    <ul class="recs">
+      <li>Use the cascade with d3 (26B) as the first stage, and keep thermal as the authority whenever a frame has it. d3-mini is too weak on small fires to be the first stage.</li>
+      <li>Give the decision model the images and only strong facts, such as thermal readings. With my RGB detector's counts in the request, d3 missed every small fire.</li>
+      <li>Fix the confident misses at the input before tuning thresholds: the drone frames are 8000 by 6000 pixels and the pipeline currently sends 640 by 512 crops, so a small fire can shrink to a few pixels. Send higher-resolution tiles instead.</li>
+      <li>Treat the 0.80 escalation threshold as provisional until it is checked on footage outside my 20 test sequences.</li>
+    </ul>
+  </div>
+</section>
+
+<h2>How the cascade works</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>d3 reads all 8 frames and decides when its top answer has at least 80% probability. Everything else goes to Qwen3.8-27B for a deeper pass, and the measurement rule, with thermal as the authority, can still raise the call to fire.</p></div>
+<figure>
+  <div class="figscroll">
+  <svg class="flow" viewBox="0 32 1160 392" role="img" aria-label="Flow of one 8-frame window: gateway measurements pass thermal facts to d3, which decides directly when its top probability is at least 0.80; otherwise Qwen3.8-27B runs a deeper pass and the measurement rule can raise the call to fire.">
+    <defs>
+      <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="head"/></marker>
+      <marker id="ah-yes" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="head-yes"/></marker>
+      <marker id="ah-no" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="head-no"/></marker>
+      <marker id="ah-dash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="head-dash"/></marker>
+    </defs>
+
+    <rect class="box" x="16" y="56" width="150" height="104" rx="6"/>
+    <text class="t" x="91" y="88" text-anchor="middle">8-frame window</text>
+    <text class="s" x="91" y="110" text-anchor="middle">RGB frames, about 40 s</text>
+    <text class="s" x="91" y="128" text-anchor="middle">of flight; thermal when</text>
+    <text class="s" x="91" y="146" text-anchor="middle">the camera recorded it</text>
+
+    <line class="edge" x1="166" y1="108" x2="194" y2="108" marker-end="url(#ah)"/>
+
+    <rect class="box" x="196" y="56" width="170" height="104" rx="6"/>
+    <text class="t" x="281" y="88" text-anchor="middle">Gateway measurements</text>
+    <text class="s" x="281" y="110" text-anchor="middle">fire detector and CLIP</text>
+    <text class="s" x="281" y="128" text-anchor="middle">on every frame; thermal</text>
+    <text class="s" x="281" y="146" text-anchor="middle">hot area above 80 C</text>
+
+    <line class="edge" x1="366" y1="108" x2="464" y2="108" marker-end="url(#ah)"/>
+    <text class="lab" x="415" y="82" text-anchor="middle">thermal</text>
+    <text class="lab" x="415" y="98" text-anchor="middle">facts only</text>
+
+    <rect class="box-d3" x="466" y="44" width="200" height="128" rx="6"/>
+    <text class="t" x="566" y="74" text-anchor="middle">d3 decision model</text>
+    <text class="s" x="566" y="96" text-anchor="middle">all 8 frames as images</text>
+    <text class="s" x="566" y="114" text-anchor="middle">observer guidance</text>
+    <text class="s" x="566" y="132" text-anchor="middle">2 questions: fire status,</text>
+    <text class="s" x="566" y="150" text-anchor="middle">"active fire visible?"</text>
+
+    <line class="edge" x1="666" y1="108" x2="690" y2="108" marker-end="url(#ah)"/>
+
+    <polygon class="gate" points="770,46 848,108 770,170 692,108"/>
+    <text class="t" x="770" y="98" text-anchor="middle">Top probability</text>
+    <text class="s" x="770" y="116" text-anchor="middle">at least 0.80 and</text>
+    <text class="s" x="770" y="132" text-anchor="middle">not "unclear"?</text>
+
+    <line class="edge-yes" x1="848" y1="108" x2="978" y2="108" marker-end="url(#ah-yes)"/>
+    <text class="lab" x="913" y="94" text-anchor="middle">yes: 132 of 170</text>
+    <text class="lab" x="913" y="128" text-anchor="middle">median 5.6 s</text>
+
+    <rect class="box" x="980" y="56" width="164" height="104" rx="6"/>
+    <text class="t" x="1062" y="94" text-anchor="middle">Fire status</text>
+    <text class="s" x="1062" y="116" text-anchor="middle">d3's call stands</text>
+    <text class="s" x="1062" y="134" text-anchor="middle">(about 0.9 s per image)</text>
+
+    <line class="edge-no" x1="770" y1="170" x2="770" y2="258" marker-end="url(#ah-no)"/>
+    <text class="lab" x="782" y="206">no: 38 of 170</text>
+    <text class="lab" x="782" y="222">median 53 s</text>
+
+    <rect class="box-llm" x="630" y="260" width="280" height="148" rx="6"/>
+    <text class="t" x="770" y="290" text-anchor="middle">Qwen3.8-27B deeper pass</text>
+    <text class="s" x="770" y="312" text-anchor="middle">guided image checks on all 8 frames</text>
+    <text class="s" x="770" y="330" text-anchor="middle">d3's probabilities added as evidence</text>
+    <text class="s" x="770" y="348" text-anchor="middle">planner, structured writeup, policy checks</text>
+    <text class="s" x="770" y="366" text-anchor="middle">failed steps retried up to 2 times</text>
+    <text class="s" x="770" y="390" text-anchor="middle">(about 6.7 s per image)</text>
+
+    <path class="edge-dash" d="M566 172 L566 334 L626 334" marker-end="url(#ah-dash)"/>
+    <text class="lab" x="556" y="262" text-anchor="end">d3 probabilities</text>
+
+    <line class="edge-no" x1="910" y1="334" x2="978" y2="334" marker-end="url(#ah-no)"/>
+
+    <rect class="box" x="980" y="272" width="164" height="124" rx="6"/>
+    <text class="t" x="1062" y="302" text-anchor="middle">Fire status + brief</text>
+    <text class="s" x="1062" y="324" text-anchor="middle">thermal is authoritative;</text>
+    <text class="s" x="1062" y="342" text-anchor="middle">the measurement rule</text>
+    <text class="s" x="1062" y="360" text-anchor="middle">can raise the call</text>
+    <text class="s" x="1062" y="378" text-anchor="middle">to fire</text>
+  </svg>
+  </div>
+  <figcaption>One 8-frame window through the cascade. Counts, medians and per-image times are from the full Florida burn (170 windows). The 0.80 threshold and the retry limit were fixed before any cascade run.</figcaption>
+</figure>
+
+<h2>What I tested</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>Three sizes of the new d3 family on four GPU setups, compared with five earlier deciders, and one cascade built on top.</p></div>
+<div class="tw"><table>
+  <thead><tr><th>Model</th><th>Size and base</th><th>GPU</th><th>Serving</th><th>Role here</th></tr></thead>
+  <tbody>
+    <tr><td><strong>d3</strong></td><td>26.1B (0.46B vision encoder), built on Qwen3.8-27B</td><td>1 x H100 80 GB</td><td>Model's own runtime behind a small HTTP server, BF16, one request at a time</td><td>Decider and cascade first stage</td></tr>
+    <tr><td>d3 (second setup)</td><td>same weights</td><td>1 x RTX PRO 6000 96 GB</td><td>My own server, BF16, optional linear-attention kernels on</td><td>Cross-check of d3 results and speed</td></tr>
+    <tr><td><strong>d3-mini</strong></td><td>4.5B (0.33B vision encoder), built on Qwen3.5-4B</td><td>1 x L4 24 GB</td><td>Same as d3 on the H100</td><td>Decider and cascade first stage</td></tr>
+    <tr><td>d3-flash</td><td>8.4B (0.46B vision encoder), built on Qwen3.5-9B</td><td>1 x L4 24 GB</td><td>My own server, BF16</td><td>Decider</td></tr>
+    <tr><td>Qwen3.8-27B BF16</td><td>27B vision LLM</td><td>1 x RTX PRO 6000</td><td>vLLM, through the LiteLLM gateway</td><td>Cascade deeper pass and full briefs</td></tr>
+    <tr><td>Kai 0.6B, Clef 27B, Clef-Flash 9B</td><td>earlier decision models</td><td>L4, RTX PRO 6000</td><td>from my earlier trials</td><td>Comparison from saved results</td></tr>
+  </tbody>
+</table></div>
+<p class="sub">d3-mini and d3-flash run on the smallest card that holds them (24 GB). d3 needs an 80 GB class card for its 52 GB of BF16 weights. All three d3 models take several images per request (up to 1.6 MP each), answer each question in its own forward pass, and return the same answer on every repeat.</p>
+
+<h2>How I tested</h2>
+<div class="two">
+  <div>
+    <dl>
+      <dt>Single frames</dt><dd>One RGB frame, the question "Are flames or glowing fire visible?", scored on 240 frames and on a fresh sample of 221 that shares none of them. Run with and without the observer guidance, and once more to check that answers repeat.</dd>
+      <dt>Test sequences</dt><dd>The same 20 eight-frame sequences I built for the gateway model trials: 8 with thermal, 12 RGB only, 7 of those small fires the RGB detector misses. Florida truth comes from the thermal camera; Sycan truth from the dataset labels.</dd>
+      <dt>Request variants</dt><dd>Each decision model got the sequences three ways: measurements as text plus the first and last frame (how Kai and Clef were tested), all 8 frames plus guidance plus measurements, and all 8 frames plus guidance with no measurements.</dd>
+    </dl>
+  </div>
+  <div>
+    <dl>
+      <dt>Full pipeline</dt><dd>Qwen3.8-27B BF16 briefs rerun on all 20 sequences with d3 and d3-mini as in-brief deciders. The rerun matched the earlier writeup calls on 20 of 20.</dd>
+      <dt>Cascade</dt><dd>Run on the 20 sequences twice, once with d3 and once with d3-mini as the first stage.</dd>
+      <dt>Full burn</dt><dd>Every frame of the Florida burn (FLAME 3 nadir plots, Hanna Hammock), cut into 170 consecutive 8-frame windows per plot and phase. A window is fire if any frame has a thermal pixel at or above 80 C, clean if every frame is a clean negative, and unscored if any frame is unlabeled (post-burn and plot 3).</dd>
+      <dt>Ground rules</dt><dd>I called only the new models, Qwen3.8 BF16 and the fire classifier; earlier models are compared from their saved results. I fixed the thresholds before any run. Before first running the d3 and d3-flash package code, I reviewed it line by line and found nothing beyond model code.</dd>
+    </dl>
+  </div>
+</div>
+
+<h2>Can d3 see fire in one frame?</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>Without guidance, d3 has the best single-frame recall and ranking of any model I have tested, and catches about half of the small fires. d3-mini and d3-flash miss nearly all small fires. Guidance helps Clef and Qwen3.8 but barely moves d3.</p></div>
+<div class="tw"><table class="num">
+  <thead><tr><th>Model (GPU)</th><th>Recall, 240 frames</th><th>Recall, fresh 221</th><th>Small fires</th><th>ROC AUC</th><th>With guidance (240 / 221)</th><th>Median time per frame</th></tr></thead>
+  <tbody>
+    <tr class="best"><td>d3 (H100)</td><td>0.42</td><td>0.39</td><td>0.48</td><td>0.976</td><td>0.43 / 0.39</td><td>0.40 s</td></tr>
+    <tr><td>d3 (RTX PRO 6000)</td><td>0.42</td><td>0.40</td><td>0.48</td><td>0.976</td><td>0.43 / 0.39</td><td>0.53 s</td></tr>
+    <tr><td>d3-flash (L4)</td><td>0.31</td><td>0.25</td><td>0.08</td><td>0.975</td><td>0.32 / 0.25</td><td>0.45 s</td></tr>
+    <tr><td>d3-mini (L4)</td><td>0.25</td><td>0.24</td><td>0.08</td><td>0.928</td><td>0.25 / 0.22</td><td>0.26 s</td></tr>
+    <tr><td>Clef 27B (RTX PRO 6000)</td><td>0.32</td><td>0.31</td><td>0.30</td><td>0.974</td><td>0.55 / 0.49</td><td>0.65 s</td></tr>
+    <tr><td>Clef-Flash 9B (RTX PRO 6000)</td><td>0.31</td><td>0.28</td><td>0.08</td><td>0.972</td><td>0.39 / 0.35</td><td>0.54 s</td></tr>
+    <tr><td>Qwen3.8-27B BF16 (RTX PRO 6000)</td><td>0.40</td><td>0.38</td><td>0.40</td><td>0.942</td><td>0.53 / 0.48</td><td>0.49 s</td></tr>
+  </tbody>
+</table></div>
+<p class="sub">Small fires are the 40 Florida frames whose fire covers less than 0.5% of the thermal view, from the first sample. ROC AUC is from the first sample. No model raised a false alarm on the 120 and 101 clean frames. Repeat runs changed 0 of 240 answers for every d3 model. Times are round trips through the gateway from a home connection.</p>
+<p class="result"><strong>Result:</strong> d3 on the H100 and on the RTX PRO 6000 gave the same answers within one frame, so the serving setup does not change the model. d3's ranking (ROC AUC 0.976) is strong, but at the default 0.5 cutoff it still says yes to only about 4 in 10 fire frames.</p>
+
+<h2>Who should decide fire status?</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>d3 is the best standalone decider when it sees the images without my measurement text. The cascade adds the deeper LLM pass where d3 is unsure and ties the best earlier method on the 20 sequences.</p></div>
+<div class="tw"><table class="num">
+  <thead><tr><th>Method</th><th>Right of 20</th><th>Small RGB-only fires (of 7)</th><th>False alarms</th><th>Median time</th></tr></thead>
+  <tbody>
+    <tr class="best"><td>Cascade: d3 first, Qwen3.8 deeper pass, measurement rule can raise fire</td><td>17</td><td>4</td><td>0</td><td>6.6 s, or about 50 s when escalated</td></tr>
+    <tr><td>Measurement rule on guided Qwen3.8 BF16 image checks (my gateway model trials)</td><td>17</td><td>4</td><td>0</td><td>part of a 46 s brief</td></tr>
+    <tr><td>Cascade: d3 first, Qwen3.8's own final call</td><td>15</td><td>2</td><td>0</td><td>same as above</td></tr>
+    <tr><td>d3 alone: all 8 frames + guidance, no measurements</td><td>15</td><td>2</td><td>0</td><td>11 s (H100), 3.9 s (RTX PRO 6000)</td></tr>
+    <tr><td>Qwen3.8-27B BF16 writeup call</td><td>14</td><td>1</td><td>0</td><td>43 s per brief</td></tr>
+    <tr><td>Cascade: d3-mini first</td><td>13 <span class="sub">(14 with the rule)</span></td><td>0 <span class="sub">(1)</span></td><td>0</td><td>4.3 s, or about 50 s when escalated</td></tr>
+    <tr><td>d3 with measurement text + all 8 frames + guidance</td><td>13</td><td>0</td><td>0</td><td>11 s</td></tr>
+    <tr><td>Clef-Flash 9B / Kai 0.6B / Clef 27B (my earlier trials)</td><td>13 / 12 / 11</td><td>0</td><td>0</td><td>0.1 to 0.9 s</td></tr>
+    <tr><td>d3 or d3-mini with measurement text + first and last frame</td><td>12</td><td>0</td><td>0</td><td>1 to 3 s</td></tr>
+    <tr><td>d3-flash, any of the three variants</td><td>12</td><td>0</td><td>0</td><td>2 to 8 s</td></tr>
+    <tr><td>d3-mini alone: all 8 frames + guidance</td><td>11</td><td>0</td><td>0</td><td>6.2 s</td></tr>
+  </tbody>
+</table></div>
+<h3>What d3 did with each kind of sequence in the cascade</h3>
+<div class="tw"><table class="num">
+  <thead><tr><th>Kind of sequence</th><th>Count</th><th>d3 decided</th><th>Sent to Qwen3.8</th><th>Right</th></tr></thead>
+  <tbody>
+    <tr><td>Thermal, fire</td><td>6</td><td>4</td><td>2 <span class="sub">(the small thermal fire, the weak Sycan fire)</span></td><td>6</td></tr>
+    <tr><td>Thermal, no fire</td><td>2</td><td>2</td><td>0</td><td>2</td></tr>
+    <tr><td>RGB only, large fire</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+    <tr><td>RGB only, small fire</td><td>7</td><td>3 <span class="sub">(all "no fire", 91 to 98% confident)</span></td><td>4</td><td>4 <span class="sub">(all four escalated)</span></td></tr>
+    <tr><td>RGB only, no fire</td><td>4</td><td>4</td><td>0</td><td>4</td></tr>
+  </tbody>
+</table></div>
+<p class="result"><strong>Result:</strong> d3 escalated exactly the hard sequences, and every escalated fire was called correctly once the measurement rule could raise fire (Qwen3.8's own writeup left two of them "indeterminate"). The three misses never reached the LLM: d3 called them "no fire" with 91 to 98% confidence and gave "active fire visible" only 0.4 to 10%.</p>
+
+<h2>The full Florida burn</h2>
+<div class="takeaway"><span class="tk-label">In short</span><p>Every labeled window was right: 101 fire windows called fire, 22 clean windows called "no fire", no errors and no retries. One in five windows went to the LLM. The day's 102 minutes of flying took 49.5 minutes to process.</p></div>
+<div class="tw"><table class="num">
+  <thead><tr><th>Part of the burn</th><th>Windows</th><th>Truth</th><th>Cascade's call</th><th>Sent to Qwen3.8</th></tr></thead>
+  <tbody>
+    <tr><td>Plot 1, pre-burn</td><td>10</td><td>10 clean</td><td><span class="ok">10 no fire</span></td><td>0</td></tr>
+    <tr><td>Plot 1, during burn</td><td>37</td><td>37 fire</td><td><span class="ok">37 fire</span></td><td>3</td></tr>
+    <tr><td>Plot 1, post-burn</td><td>17</td><td>unlabeled</td><td>7 fire, 1 smoke only, 1 unclear, 8 no fire</td><td>9</td></tr>
+    <tr><td>Plot 2, pre-burn</td><td>11</td><td>11 clean</td><td><span class="ok">11 no fire</span></td><td>0</td></tr>
+    <tr><td>Plot 2, during burn</td><td>65</td><td>64 fire, 1 clean</td><td><span class="ok">64 fire, 1 no fire</span></td><td>24</td></tr>
+    <tr><td>Plot 2, post-burn</td><td>15</td><td>unlabeled</td><td>4 fire, 1 smoke only, 10 no fire</td><td>2</td></tr>
+    <tr><td>Plot 3 (no burn phase recorded)</td><td>15</td><td>unlabeled</td><td>15 no fire</td><td>0</td></tr>
+  </tbody>
+</table></div>
+<p class="result"><strong>Result:</strong> All 21 fire windows that contain a small fire (under 0.5% of the thermal view at 80 C) were called fire. On the thermal-view crop the RGB detector alone misses 19% of Florida fire frames, almost all of them small fires. In 6 fire windows d3 said "no fire" despite thermal hot pixels; the deeper pass and the thermal rule corrected all of them. The 11 flagged post-burn windows are plausible, since some post-burn frames still show smoke or live flame, but they have no labels.</p>
+
+<h3>Time per burn and per image</h3>
+<div class="tw"><table class="num">
+  <thead><tr><th>Burn</th><th>Windows</th><th>Images</th><th>Sent to Qwen3.8</th><th>Processing time</th><th>Time per image</th></tr></thead>
+  <tbody>
+    <tr><td>Plot 1 (pre, during, post)</td><td>64</td><td>508</td><td>12</td><td>19.4 min</td><td>2.29 s</td></tr>
+    <tr><td><span class="sub">of which the burn itself (flown in 25.2 min)</span></td><td>37</td><td>296</td><td>3</td><td>11.1 min</td><td>2.24 s</td></tr>
+    <tr><td>Plot 2 (pre, during, post)</td><td>91</td><td>723</td><td>26</td><td>29.3 min</td><td>2.43 s</td></tr>
+    <tr><td><span class="sub">of which the burn itself</span></td><td>65</td><td>520</td><td>24</td><td>26.4 min</td><td>3.05 s</td></tr>
+    <tr><td>Plot 3</td><td>15</td><td>117</td><td>0</td><td>0.7 min</td><td>0.38 s</td></tr>
+    <tr class="best"><td>Whole Florida day (about 102 min of flying)</td><td>170</td><td>1,348</td><td>38</td><td>49.5 min</td><td>2.20 s</td></tr>
+  </tbody>
+</table></div>
+<div class="tw"><table class="num">
+  <thead><tr><th>Path through the cascade</th><th>Windows</th><th>Images</th><th>Total time</th><th>Time per image</th><th>Median per window</th></tr></thead>
+  <tbody>
+    <tr><td>d3 decided</td><td>132</td><td>1,048</td><td>15.8 min</td><td>0.91 s</td><td>5.6 s <span class="sub">(d3 call itself 2.3 s)</span></td></tr>
+    <tr><td>Sent to Qwen3.8 deeper pass</td><td>38</td><td>300</td><td>33.7 min</td><td>6.73 s</td><td>53.0 s</td></tr>
+  </tbody>
+</table></div>
+<p class="sub">Windows ran one after another from a home connection through the gateway; times include the fire classifier and thermal measurements. 1,348 of the 1,353 Florida frames were used: 5 trailing frames could not fill a window of at least 4. Flying times come from my full-burn benchmark.</p>
+<p class="result"><strong>Result:</strong> The cascade averages 17.5 s per window against about 40 s of flight per window, so one d3 server and one LLM server keep up with a single drone on average. A deeper pass takes longer than one window, so escalations would queue during a burst; plot 2's burn, with 24 escalations in 65 windows, is the worst case. For scale, the RGB detector alone handles all 1,353 frames in 7.5 s of server time; the extra time buys a reasoned fire call and a second look at hard windows.</p>
+
+<h2>What I learned</h2>
+<ul class="prose">
+  <li><strong>Give the decision model images, and keep weak numbers out of the request.</strong> With my RGB detector's counts in the text ("fire in 0 of 8 frames"), d3 missed every small fire. With the images and the guidance alone it caught 2 of 7. TypeSafe's Jev documentation gives the same advice: keep arithmetic in code, and expect accuracy to fall as unrelated content grows.</li>
+  <li><strong>Model size matters for small fires.</strong> d3 catches about half of small fires on single frames; d3-flash and d3-mini catch under a tenth. The cheaper models are fine on obvious fires and clean ground, and fail exactly on the hard case.</li>
+  <li><strong>A cascade only helps where the first model knows it is unsure.</strong> d3's escalations landed on the hard sequences, and the deeper pass got them right. Its three misses were confident, so no threshold would have caught them.</li>
+  <li><strong>The confident misses are most likely a resolution problem.</strong> The Florida frames are 8000 by 6000 pixels; the pipeline sends 640 by 512 crops, and d3 reads images in 32 by 32 pixel patches. A fire a few pixels wide in the original can fall below one patch. Studies of vision models find accuracy is highly sensitive to how large the subject is in the image.</li>
+  <li><strong>Guidance text works differently per model.</strong> The same observer guidance raised Clef 27B from 0.32 to 0.55 single-frame recall and Qwen3.8 BF16 from 0.40 to 0.53, but left d3 almost unchanged. d3 shows each option to the model as "name: description", so guidance may work better inside the option descriptions than appended to the question.</li>
+  <li><strong>Thermal still decides when it exists.</strong> On the full burn every during-burn window had thermal data, and the cascade was right on all of them, including 6 where d3 alone said "no fire".</li>
+  <li><strong>Each question costs a full pass over the images.</strong> The cascade asks 2 questions and its d3 call took a median 2.3 s for 8 frames; the 4-question sequence test took about 11 s. Ask only what the decision needs.</li>
+  <li><strong>Serving details move speed, not answers.</strong> The two d3 setups agreed frame for frame, but the RTX PRO 6000 setup, with the optional linear-attention kernels, ran 8-frame requests about 3 times faster than the H100 setup without them.</li>
+  <li><strong>Runs are reproducible.</strong> Every decision model gave identical answers on repeat, and rerunning the full Qwen3.8 pipeline reproduced the earlier calls on 20 of 20 sequences.</li>
+</ul>
+
+<h2>Next steps</h2>
+<ul class="prose">
+  <li><strong>Tiles at higher resolution.</strong> Cut each original 8000 by 6000 frame into tiles, ask d3 about each, and take the highest fire probability. This needs no tuning, so it can be scored fairly on the same 20 sequences.</li>
+  <li><strong>Smaller, sharper questions.</strong> Ask separately about flame or glow, smoke rising from a ground source, and a fresh burn edge, each with explicit yes and no descriptions, and combine the answers in code.</li>
+  <li><strong>Correct for option order.</strong> d3 always lists "no" first on yes or no questions. Ask the fire-status question twice with the options reversed and average the two.</li>
+  <li><strong>Test the RGB-only path at burn scale.</strong> Rerun the plot 2 burn with thermal withheld (65 windows), the case where the cascade still misses fires.</li>
+  <li><strong>Set the escalation threshold on new footage.</strong> Choose it on burns outside these 20 sequences, then freeze it.</li>
+</ul>
+
+<h2>Method notes</h2>
+<ul class="prose">
+  <li>The 20-sequence comparison comes down to 7 small RGB-only fires, so a difference of one sequence is within noise.</li>
+  <li>"Measurement rule can raise fire" reuses the rule from my gateway model trials. On RGB-only footage its false-alarm check rests on the 4 no-fire test sequences from those trials. In the full burn, d3 decided all 21 RGB-only pre-burn windows as no fire on its own, so the rule was not exercised there.</li>
+  <li>The full burn mainly tests the thermal path: every fire window had thermal data, and the measurement rule never had to raise a call on RGB alone.</li>
+  <li>The cascade's 0.80 threshold and 2 retries were set before any run and not tuned. No retries were needed in any run.</li>
+  <li>Earlier models (Kai, Clef, Clef-Flash, other Qwen3.8 builds) were not rerun; their numbers come from my gateway model trials, on the same frames and sequences.</li>
+  <li>Data: FLAME 3 (Hopkins et al., 2024, arXiv 2412.02831) and the FLAME 3 nadir thermal plot subset (Tall Timbers Research Station, Hanna Hammock burn).</li>
+</ul>
+
+<h2>Sources on writing decision-model requests</h2>
+<ul class="prose sources">
+  <li>Model repositories and cards, vLLM Semantic Router, at the revisions tested: <a href="https://huggingface.co/vllm-sr/d3/tree/093cffbaa7be6f5dfe14252ae7e80c396c06dbd9">vllm-sr/d3</a> (093cffba), <a href="https://huggingface.co/vllm-sr/d3-mini/tree/0e78bbdbe3cf480ed1461c185c9e0c4fa9258011">vllm-sr/d3-mini</a> (0e78bbdb), <a href="https://huggingface.co/vllm-sr/d3-flash/tree/f6075bff3c0f7d5704e353d0fb2ebf94888d1691">vllm-sr/d3-flash</a> (f6075bff)</li>
+  <li>TypeSafe Jev documentation: <a href="https://docs.typesafe.ai/concepts/how-to-build-with-system-one.md">building with System One</a>, <a href="https://docs.typesafe.ai/primitives/choice.md">choice questions</a>, <a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13.md">model limits</a>, <a href="https://docs.typesafe.ai/images.md">images</a></li>
+  <li>Zhang et al., 2025, on vision models and small subjects: <a href="https://arxiv.org/abs/2502.17422">arXiv 2502.17422</a></li>
+  <li>Zheng et al., 2023, on option-order bias: <a href="https://arxiv.org/abs/2309.03882">arXiv 2309.03882</a></li>
+  <li>Zhao et al., 2021, on calibrating a model's prior: <a href="https://arxiv.org/abs/2102.09690">arXiv 2102.09690</a></li>
+</ul>
+</main>

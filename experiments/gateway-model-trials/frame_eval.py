@@ -4,7 +4,8 @@ LLM routes answer the gateway's own `flames_visible` question (log-probs over th
 Clef and Clef-Flash get the frame as an image and a yes/no question in the SystemOne format.
 Frames (seed 0): Florida thermal-view crops, 40 large fires (>= 0.5% of the thermal view at 80 C), 40 small fires (< 0.5%),
 60 pre-burn and 20 burn frames with no hot pixel; Sycan Marsh, 40 fire and 40 no-fire. 240 frames.
-Usage: source gateway_env.sh; python frame_eval.py NAME [NAME ...]   (NAME = an LLM route, clef or clef_flash)
+Usage: source gateway_env.sh; python frame_eval.py NAME [NAME ...]   (NAME = an LLM route, clef, clef_flash or a d3 name
+from recon_gateway.deciders: d3, d3_rtx, d3_mini, d3_flash). RESULTS_DIR sends the outputs to another folder.
 GUIDED=1 adds the observer guidance (recon_gateway.prompts.WATCH_FOR): as a system message for LLM routes, appended to the
 question instructions for Clef. SEED=N (N > 0) draws a confirmation sample that leaves out every seed-0 frame; groups whose
 pool is too small keep what is left (the 21-frame "burn, no hot pixel" pool leaves 1 new frame). Both add a suffix to the name.
@@ -28,6 +29,7 @@ sys.path.insert(0, str(HERE.parents[1] / "src"))
 from recon_gateway import tools as T  # noqa: E402
 from recon_gateway.sequence import Frame  # noqa: E402
 from recon_gateway.prompts import WATCH_FOR  # noqa: E402
+from recon_gateway import deciders as D  # noqa: E402
 
 GUIDED = os.environ.get("GUIDED") == "1"
 SEED = int(os.environ.get("SEED", "0"))
@@ -38,7 +40,7 @@ PREFIX = f"frames_{VERSION}_" if VERSION else "frames_"
 CONCURRENCY = int(os.environ.get("FRAME_CONCURRENCY", "1"))
 
 DATA = Path(os.environ.get("RECON_DATA_ROOT", HERE.parents[1] / "data"))
-RESULTS = HERE / "results"
+RESULTS = Path(os.environ.get("RESULTS_DIR", HERE / "results"))
 FLORIDA_INDEX = HERE.parent / "full-burn-benchmark/results/florida_index.csv"  # copy of prep_florida.py's index.csv
 SYCAN = "flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)"
 QUESTION = "Are flames or glowing fire visible in this aerial image?"
@@ -86,14 +88,17 @@ def score_llm(route):
     return one
 
 
+SYSTEMONE = {"clef", "clef_flash"} | D.D3_FAMILY  # decision models: one image, a yes/no question, guidance appended
+
+
 def score_clef(name):
-    url = os.environ["RECON_CLEF_URL" if name == "clef" else "RECON_CLEF_FLASH_URL"]
+    url = os.environ[D.URLS[name]]
     h = {"Authorization": f"Bearer {os.environ['RECON_GATEWAY_KEY']}", "x-recon-run": f"{VERSION or 'v1'}/frames/{name}{SUFFIX}"}
 
     def one(r):
-        body = {"model": name, "state": "One aerial frame from a wildfire reconnaissance drone flight.",
+        body = {"model": D.MODEL_NAMES[name], "state": "One aerial frame from a wildfire reconnaissance drone flight.",
                 "questions": {"flames": {"type": "noul", "instructions": QUESTION + ("\n\n" + WATCH_FOR if GUIDED else "")}},
-                "images": [Frame(id=r.uid, rgb_path=DATA / r.path).rgb_b64(max_side=640)]}
+                "images": [D.media(name, Frame(id=r.uid, rgb_path=DATA / r.path).rgb_b64(max_side=640))]}
         t0 = time.perf_counter()
         for _ in range(30):
             try:
@@ -112,7 +117,7 @@ def score_clef(name):
 
 def run(name):
     fs = frame_set()
-    fn = score_clef(name) if name in ("clef", "clef_flash") else score_llm(name)
+    fn = score_clef(name) if name in SYSTEMONE else score_llm(name)
     fn(next(fs.itertuples()))  # warm-up, not timed
     t0 = time.perf_counter()
     with ThreadPoolExecutor(CONCURRENCY) as pool:

@@ -1,0 +1,222 @@
+uid,y,group,path,p_fire,latency_s,coverage,margin,answer,log_odds,raw_top_logprobs,fire
+plot1_duringburn_0813,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0813.jpg,0.0477146335967793,0.6053594590630382,1.0,0.9045707328064412,no,-2.9936266096538806,,False
+plot1_duringburn_0696,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0696.jpg,0.9661951080907764,0.5853874580934644,1.0,0.9323902161815528,yes,3.352760266008948,,True
+plot1_duringburn_0771,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0771.jpg,0.4168332641373057,0.5836647499818355,1.0,0.1663334717253884,no,-0.3357868461498034,,False
+plot1_duringburn_0811,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0811.jpg,0.0598928297307075,0.5937168749514967,1.0,0.8802143405385849,no,-2.7534370857286348,,False
+plot2_duringburn_1337,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1337.jpg,0.055705389427987,0.5835507090669125,1.0,0.8885892211440259,no,-2.8303613045415945,,False
+plot1_duringburn_0786,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0786.jpg,0.0849544474113401,0.5846901249606162,1.0,0.8300911051773198,no,-2.3768586482562695,,False
+plot1_duringburn_0697,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0697.jpg,0.9868849139080555,0.5825438329484314,1.0,0.9737698278161112,yes,4.320790253033112,,True
+plot2_duringburn_1229,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1229.jpg,0.9969522767336616,0.584917708998546,1.0,0.993904553467323,yes,5.790308060130368,,True
+plot1_duringburn_0547,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0547.jpg,0.7369716763496399,0.6490373329725116,1.0,0.4739433526992798,yes,1.0302877395790968,,True
+plot1_duringburn_0609,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0609.jpg,0.9290126700552206,0.582738250028342,1.0,0.8580253401104412,yes,2.5716209674660777,,True
+plot2_duringburn_1214,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1214.jpg,0.8407303595978236,0.471025165868923,1.0,0.6814607191956472,yes,1.6636723723004214,,True
+plot1_duringburn_0551,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0551.jpg,0.807377898363267,0.5924009159207344,1.0,0.614755796726534,yes,1.4330615873411732,,True
+plot2_duringburn_1284,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1284.jpg,0.0851246646428455,0.5885395419318229,1.0,0.8297506707143089,no,-2.374670985604816,,False
+plot1_duringburn_0779,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0779.jpg,0.0796987298288113,0.5509599589277059,1.0,0.8406025403423772,no,-2.4464474352487295,,False
+plot1_duringburn_0585,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0585.jpg,0.8358312622829346,0.4560609580948949,1.0,0.6716625245658692,yes,1.627531965938031,,True
+plot1_duringburn_0736,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0736.jpg,0.9729879389741874,0.5863350408617407,1.0,0.9459758779483748,yes,3.5840882154779665,,True
+plot2_duringburn_1002,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1002.jpg,0.7001541644288849,0.5982288750819862,1.0,0.4003083288577698,yes,0.8480320845493953,,True
+plot1_duringburn_0618,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0618.jpg,0.9237527388893476,0.5774562910664827,1.0,0.8475054777786952,yes,2.494462942244096,,True
+plot1_duringburn_0719,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0719.jpg,0.9914774464877268,0.5785484160296619,1.0,0.9829548929754536,yes,4.7564801968895045,,True
+plot2_duringburn_1200,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1200.jpg,0.996608760119458,0.5783990828786045,1.0,0.993217520238916,yes,5.683162674818155,,True
+plot2_duringburn_1245,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1245.jpg,0.0705712326318127,0.5903274589218199,1.0,0.8588575347363745,no,-2.5779475771387883,,False
+plot2_duringburn_1283,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1283.jpg,0.088243584860403,0.6052189590409398,1.0,0.823512830279194,no,-2.335271865365889,,False
+plot1_duringburn_0616,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0616.jpg,0.849368691444397,0.6242483328096569,1.0,0.698737382888794,yes,1.729658171691765,,True
+plot1_duringburn_0784,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0784.jpg,0.0989293262841108,0.5833160001784563,1.0,0.8021413474317782,no,-2.209177974442699,,False
+plot2_duringburn_1205,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1205.jpg,0.9926143662792212,0.4472201669123024,1.0,0.9852287325584426,yes,4.900805512243056,,True
+plot2_duringburn_1218,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1218.jpg,0.9963080381968672,0.4315895829349756,1.0,0.9926160763937346,yes,5.597898514326873,,True
+plot1_duringburn_0686,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0686.jpg,0.9334719816761028,0.5906610840465873,1.0,0.8669439633522056,yes,2.6412877611513648,,True
+plot1_duringburn_0680,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0680.jpg,0.919515093852172,0.5999232921749353,1.0,0.8390301877043438,yes,2.435776793617311,,True
+plot2_duringburn_1174,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1174.jpg,0.34921189101899,0.6287483749911189,1.0,0.30157621796202,no,-0.6225052282312554,,False
+plot1_duringburn_0660,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0660.jpg,0.9067760570827714,0.588333792053163,1.0,0.8135521141655429,yes,2.2748909275860316,,True
+plot2_duringburn_1018,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1018.jpg,0.7770432118021964,0.5875271251425147,1.0,0.5540864236043928,yes,1.2485179846807104,,True
+plot2_duringburn_1031,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1031.jpg,0.9766291903210492,0.5940580419264734,1.0,0.9532583806420982,yes,3.732619246888631,,True
+plot2_duringburn_1326,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1326.jpg,0.1443372113805178,0.6200192919932306,1.0,0.7113255772389644,no,-1.7797240523383195,,False
+plot2_duringburn_1280,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1280.jpg,0.0790220293184078,0.5828354579862207,1.0,0.8419559413631843,no,-2.4557094513300135,,False
+plot2_duringburn_1097,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1097.jpg,0.9255706598939696,0.5856032918673009,1.0,0.8511413197879394,yes,2.5205602565397847,,True
+plot2_duringburn_1036,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1036.jpg,0.9366814145191976,0.5862927080597728,1.0,0.8733628290383955,yes,2.694164323027373,,True
+plot2_duringburn_1236,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1236.jpg,0.1707636219718231,0.5887318749446422,1.0,0.6584727560563538,no,-1.5802249782781903,,False
+plot2_duringburn_1153,1,"Florida fire, large",flame3_nadir_prepped/crop/plot2_duringburn_1153.jpg,0.2713646454432395,0.600928874919191,1.0,0.4572707091135209,no,-0.9877099357838148,,False
+plot1_duringburn_0721,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0721.jpg,0.9581896866109724,0.586640999885276,1.0,0.9163793732219444,yes,3.1319027202039997,,True
+plot1_duringburn_0810,1,"Florida fire, large",flame3_nadir_prepped/crop/plot1_duringburn_0810.jpg,0.0534112876618822,0.6644388339482248,1.0,0.8931774246762354,no,-2.8748425899101453,,False
+plot2_duringburn_0983,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0983.jpg,0.7088227060788064,0.5885814169887453,1.0,0.4176454121576127,yes,0.8896730942026765,,True
+plot2_duringburn_0885,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0885.jpg,0.2906720638275146,0.5828562499955297,1.0,0.4186558723449707,no,-0.8921222497026781,,False
+plot2_duringburn_0876,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0876.jpg,0.2451840043067932,0.5824077918659896,1.0,0.5096319913864136,no,-1.1244650385884924,,False
+plot2_duringburn_0917,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0917.jpg,0.0330813091445435,0.5096172920893878,1.0,0.933837381710913,no,-3.375145963524812,,False
+plot2_duringburn_0886,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0886.jpg,0.9208140900670432,0.5903905418235809,1.0,0.8416281801340864,yes,2.45345978116827,,True
+plot2_duringburn_0929,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0929.jpg,0.0978967421853751,0.5859399170149118,1.0,0.8042065156292497,no,-2.2208157180032617,,False
+plot2_duringburn_0919,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0919.jpg,0.4751160897279951,0.5885995419230312,1.0,0.0497678205440097,no,-0.0996179412475203,,False
+plot2_duringburn_0930,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0930.jpg,0.5205677306821266,0.6277263329830021,1.0,0.0411354613642531,yes,0.0823173741594231,,True
+plot2_duringburn_0850,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0850.jpg,0.0041509324152297,0.580850750207901,1.0,0.9916981351695404,no,-5.480262720157138,,False
+plot2_duringburn_0905,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0905.jpg,0.6992233395576477,0.5877274579834193,1.0,0.3984466791152954,yes,0.8436022067076441,,True
+plot2_duringburn_0903,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0903.jpg,0.5163063406944275,0.5839434168301523,1.0,0.0326126813888549,yes,0.0652485018281071,,True
+plot2_duringburn_0899,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0899.jpg,0.5728795869874708,1.1520256251096723,1.0,0.1457591739749415,yes,0.2936095785955155,,True
+plot2_duringburn_0969,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0969.jpg,0.5823462779029095,0.690209083026275,1.0,0.1646925558058189,yes,0.332412576853203,,True
+plot2_duringburn_0863,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0863.jpg,0.0237545371055603,0.5862108750734478,1.0,0.9524909257888794,no,-3.7159405054006234,,False
+plot2_duringburn_0970,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0970.jpg,0.3645766973495483,0.5949810829479247,1.0,0.2708466053009033,no,-0.5555544478660042,,False
+plot2_duringburn_0914,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0914.jpg,0.0884675926883463,0.5831459169276059,1.0,0.8230648146233073,no,-2.332490846672312,,False
+plot2_duringburn_0938,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0938.jpg,0.7839424130908015,0.551767332945019,1.0,0.567884826181603,yes,1.288790586750134,,True
+plot2_duringburn_0904,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0904.jpg,0.777041719975574,0.6025526248849928,1.0,0.5540834399511481,yes,1.2485093737231925,,True
+plot2_duringburn_0867,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0867.jpg,0.0295081517735455,0.5855871250387281,1.0,0.9409836964529088,no,-3.493136446533266,,False
+plot2_duringburn_0928,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0928.jpg,0.6600054502487183,0.6069606249220669,1.0,0.3200109004974365,yes,0.663318505600544,,True
+plot2_duringburn_0942,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0942.jpg,0.778170633641323,0.6040109999012202,1.0,0.556341267282646,yes,1.2550373572504363,,True
+plot2_duringburn_0975,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0975.jpg,0.0849273086004617,0.5968163339421153,1.0,0.8301453827990765,no,-2.377207808604026,,False
+plot2_duringburn_0908,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0908.jpg,0.820408046245575,0.6090134170372039,1.0,0.6408160924911499,yes,1.5191144799178866,,True
+plot2_duringburn_0957,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0957.jpg,0.8026581288968402,0.5900115831755102,1.0,0.6053162577936804,yes,1.4029912699421694,,True
+plot2_duringburn_0964,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0964.jpg,0.6918914914131165,0.5239161669742316,1.0,0.3837829828262329,yes,0.8089771174692297,,True
+plot2_duringburn_0860,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0860.jpg,0.022486489204539,0.5970069160684943,1.0,0.955027021590922,no,-3.772097464497728,,False
+plot2_duringburn_0864,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0864.jpg,0.0159047044347072,0.5833504579495639,1.0,0.9681905911305854,no,-4.125107795589669,,False
+plot2_duringburn_0927,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0927.jpg,0.6884690337460657,0.5852184169925749,1.0,0.3769380674921314,yes,0.7929715973419215,,True
+plot2_duringburn_0948,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0948.jpg,0.1827449311462003,0.5807694168761373,1.0,0.6345101377075992,no,-1.4978598862154815,,False
+plot2_duringburn_0956,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0956.jpg,0.5772223724590317,0.5864054160192609,1.0,0.1544447449180634,yes,0.3113812488695311,,True
+plot2_duringburn_0898,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0898.jpg,0.7577509654238532,0.5895008330699056,1.0,0.5155019308477065,yes,1.1403885244784016,,True
+plot2_duringburn_0939,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0939.jpg,0.7926448937942785,0.5938798747956753,1.0,0.585289787588557,yes,1.3409425079145256,,True
+plot2_duringburn_0865,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0865.jpg,0.0304727391687301,0.5866877499502152,1.0,0.9390545216625398,no,-3.4599761065397603,,False
+plot2_duringburn_0847,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0847.jpg,0.0037599512073197,0.6043630419299006,1.0,0.9924800975853606,no,-5.579582260848792,,False
+plot2_duringburn_0889,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0889.jpg,0.929961351453106,0.4993983749300241,1.0,0.8599227029062122,yes,2.586095815921939,,True
+plot2_duringburn_0844,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0844.jpg,0.0046093315572937,0.5987396670971066,1.0,0.9907813368854126,no,-5.375052443622266,,False
+plot2_duringburn_0968,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0968.jpg,0.3647826313972473,0.5910744580905885,1.0,0.2704347372055053,no,-0.5546656073119693,,False
+plot2_duringburn_0935,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0935.jpg,0.7463948949097066,0.5909690409898758,1.0,0.4927897898194131,yes,1.079476457049838,,True
+plot2_duringburn_0973,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0973.jpg,0.4819750477060704,0.5922170830890536,1.0,0.0360499045878591,no,-0.0721310670850142,,False
+plot2_duringburn_0856,1,"Florida fire, small",flame3_nadir_prepped/crop/plot2_duringburn_0856.jpg,0.0122642086625511,0.6151248749811202,1.0,0.9754715826748978,no,-4.388730088653161,,False
+plot1_preburn_0040,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0040.jpg,0.0065179004575079,0.679495541844517,1.0,0.986964199084984,no,-5.026663735897102,,False
+plot1_preburn_0043,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0043.jpg,0.004139885121291,0.608563584042713,1.0,0.991720229757418,no,-5.482938761840277,,False
+plot2_preburn_0135,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0135.jpg,0.0022674527171282,0.6059345409739763,1.0,0.9954650945657436,no,-6.086828201335987,,False
+plot1_preburn_0069,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0069.jpg,0.0045433888867284,0.5936159999109805,1.0,0.9909132222265432,no,-5.389528353116445,,False
+plot2_preburn_0084,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0084.jpg,0.0183472439578932,0.6048511669505388,1.0,0.9633055120842136,no,-3.9797582667115297,,False
+plot1_preburn_0059,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0059.jpg,0.004061784731433,0.6773021670524031,1.0,0.991876430537134,no,-5.50206275675199,,False
+plot2_preburn_0123,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0123.jpg,0.0024762340904719,0.5953279999084771,1.0,0.995047531819056,no,-5.9985370797907045,,False
+plot2_preburn_0145,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0145.jpg,0.0032103274785224,0.6584276668727398,1.0,0.9935793450429552,no,-5.738166837177261,,False
+plot1_preburn_0071,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0071.jpg,0.0047334186969656,0.6004021249245852,1.0,0.9905331626060688,no,-5.348362911835077,,False
+plot1_preburn_0065,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0065.jpg,0.0031561341770218,0.6037188752088696,1.0,0.9936877316459564,no,-5.75524623673009,,False
+plot1_preburn_0083,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0083.jpg,0.0069787649796065,0.5987460408359766,1.0,0.9860424700407868,no,-4.957880084429943,,False
+plot1_preburn_0082,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0082.jpg,0.0046722332763802,0.5912491669878364,1.0,0.9906555334472396,no,-5.361434921694868,,False
+plot1_preburn_0014,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0014.jpg,0.0084713014093007,0.6563661249820143,1.0,0.9830573971813986,no,-4.762563746031722,,False
+plot2_preburn_0129,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0129.jpg,0.0058651825746287,0.5969793749973178,1.0,0.9882696348507424,no,-5.132839217532246,,False
+plot1_preburn_0054,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0054.jpg,0.0036453632683021,0.6021858749445528,1.0,0.9927092734633958,no,-5.610647232605217,,False
+plot2_preburn_0149,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0149.jpg,0.0083033456682327,0.5855553748551756,1.0,0.9833933086635344,no,-4.782758742375957,,False
+plot1_preburn_0038,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0038.jpg,0.007293122201677,0.6001343748066574,1.0,0.985413755596646,no,-4.913503692062243,,False
+plot1_preburn_0033,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0033.jpg,0.0036952855128866,0.6116722498554736,1.0,0.9926094289742268,no,-5.596995327556078,,False
+plot2_preburn_0103,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0103.jpg,0.0042814454741632,0.4671300419140607,1.0,0.9914371090516736,no,-5.449173961690462,,False
+plot2_preburn_0113,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0113.jpg,0.0069726280598029,0.5963588329032063,1.0,0.9860547438803942,no,-4.958766021797559,,False
+plot1_preburn_0067,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0067.jpg,0.0039257608935093,0.5968276669736952,1.0,0.9921484782129814,no,-5.536261601397118,,False
+plot2_preburn_0162,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0162.jpg,0.0116820263994154,0.5850344579666853,1.0,0.9766359472011692,no,-4.4379530261454825,,False
+plot2_preburn_0163,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0163.jpg,0.0100366270363384,0.5926436670124531,1.0,0.9799267459273232,no,-4.591426840174874,,False
+plot1_preburn_0073,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0073.jpg,0.0041449327499513,0.6129761249758303,1.0,0.9917101345000974,no,-5.481715168109917,,False
+plot1_preburn_0006,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0006.jpg,0.0037412151857635,0.632218207931146,1.0,0.9925175696284728,no,-5.584596573314605,,False
+plot2_preburn_0098,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0098.jpg,0.0036737865369441,0.5443889580201358,1.0,0.9926524269261116,no,-5.602851843407805,,False
+plot1_preburn_0021,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0021.jpg,0.0050770733032648,0.6337455841712654,1.0,0.9898458533934704,no,-5.277930299387948,,False
+plot1_preburn_0016,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0016.jpg,0.011045741324003,0.6073732920922339,1.0,0.977908517351994,no,-4.494603127343145,,False
+plot1_preburn_0045,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0045.jpg,0.0040460096650752,0.6736937088426203,1.0,0.9919079806698496,no,-5.505969934534418,,False
+plot2_preburn_0160,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0160.jpg,0.0050588293475478,0.5904146670363843,1.0,0.9898823413049044,no,-5.281548508144931,,False
+plot1_preburn_0080,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0080.jpg,0.0072554858410249,0.590651584090665,1.0,0.9854890283179502,no,-4.918715493626803,,False
+plot2_preburn_0147,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0147.jpg,0.005841121164577,0.5905310839880258,1.0,0.988317757670846,no,-5.136974273096382,,False
+plot2_preburn_0131,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0131.jpg,0.0034579374797849,0.5952214170247316,1.0,0.99308412504043,no,-5.66361904179759,,False
+plot2_preburn_0111,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0111.jpg,0.0049574964886878,0.6032059169374406,1.0,0.9900850070226244,no,-5.301884580214313,,False
+plot1_preburn_0001,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0001.jpg,0.0051582237903198,0.5839287918061018,1.0,0.9896835524193602,no,-5.261991412077332,,False
+plot1_preburn_0029,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0029.jpg,0.0046011044513887,0.5946012909989804,1.0,0.9907977910972224,no,-5.376847184064406,,False
+plot1_preburn_0039,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0039.jpg,0.0085769914326645,0.680765749886632,1.0,0.982846017134671,no,-4.750058090340078,,False
+plot2_preburn_0100,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0100.jpg,0.0054174701916502,0.5881771659478545,1.0,0.9891650596166994,no,-5.212694128903698,,False
+plot2_preburn_0086,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0086.jpg,0.0037142585573168,0.5398105829954147,1.0,0.9925714828853665,no,-5.5918550279906825,,False
+plot1_preburn_0005,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0005.jpg,0.0049466921668302,0.6730563330929726,1.0,0.9901066156663396,no,-5.304077207357766,,False
+plot2_preburn_0115,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0115.jpg,0.0055796874471125,0.6217380829621106,1.0,0.988840625105775,no,-5.1830272051694894,,False
+plot2_preburn_0107,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0107.jpg,0.0048445175869204,0.5989700418431312,1.0,0.9903109648261592,no,-5.325051317560109,,False
+plot1_preburn_0019,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0019.jpg,0.0049716862687832,0.5351065839640796,1.0,0.9900566274624336,no,-5.299012120708513,,False
+plot1_preburn_0060,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0060.jpg,0.003822264268107,0.6553987918887287,1.0,0.992355471463786,no,-5.563082703834918,,False
+plot1_preburn_0049,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0049.jpg,0.0072779548849208,0.6008095410652459,1.0,0.9854440902301584,no,-4.915600810235425,,False
+plot1_preburn_0026,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0026.jpg,0.0044617502569881,0.5956100840121508,1.0,0.9910764994860236,no,-5.407742422058993,,False
+plot1_preburn_0064,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0064.jpg,0.0040134486094462,0.605798542033881,1.0,0.9919731027811076,no,-5.514082880789502,,False
+plot2_preburn_0139,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0139.jpg,0.0084949163482666,0.5158965419977903,1.0,0.9830101673034668,no,-4.759756167277359,,False
+plot2_preburn_0133,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0133.jpg,0.0043809847688928,0.6008465839549899,1.0,0.9912380304622144,no,-5.426091137381188,,False
+plot2_preburn_0167,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0167.jpg,0.0037223309328847,0.5927270408719778,1.0,0.9925553381342304,no,-5.589675936017475,,False
+plot2_preburn_0105,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0105.jpg,0.0112006003767291,0.5921882500406355,1.0,0.9775987992465418,no,-4.480524097596681,,False
+plot2_preburn_0154,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0154.jpg,0.002988286472246,0.5988094171043485,1.0,0.9940234270555078,no,-5.810062381746289,,False
+plot1_preburn_0008,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0008.jpg,0.0036359573189566,0.6827773328404874,1.0,0.9927280853620868,no,-5.613240257718302,,False
+plot2_preburn_0156,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0156.jpg,0.0058915207714093,0.6057196669280529,1.0,0.9882169584571814,no,-5.128332174912448,,False
+plot2_preburn_0170,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0170.jpg,0.0050104556974632,0.6010732080321759,1.0,0.9899790886050734,no,-5.291205360326839,,False
+plot1_preburn_0020,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0020.jpg,0.0050978447471283,0.5940737910568714,1.0,0.9898043105057432,no,-5.27382654408593,,False
+plot2_preburn_0169,0,Florida pre-burn,flame3_nadir_prepped/crop/plot2_preburn_0169.jpg,0.0043284057950194,0.6055004168301821,1.0,0.991343188409961,no,-5.438218180968805,,False
+plot1_preburn_0081,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0081.jpg,0.0030253747229315,0.5976276251021773,1.0,0.9939492505541369,no,-5.797690359401633,,False
+plot1_preburn_0079,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0079.jpg,0.0073936225918734,0.5956227499991655,1.0,0.985212754816253,no,-4.899716371357728,,False
+plot1_preburn_0027,0,Florida pre-burn,flame3_nadir_prepped/crop/plot1_preburn_0027.jpg,0.0064396890601712,0.6365901660174131,1.0,0.9871206218796575,no,-5.0388145093066,,False
+plot2_duringburn_0832,0,"Florida burn, no hot pixel",flame3_nadir_prepped/crop/plot2_duringburn_0832.jpg,0.0046328565760329,0.5867548750247806,1.0,0.990734286847934,no,-5.369938008549748,,False
+Fire_542,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00542.JPG,0.0499558065096481,0.4306523341219872,1.0,0.9000883869807037,no,-2.9453697581982476,,False
+Fire_521,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00521.JPG,0.0934344057294788,0.4497139998711645,1.0,0.8131311885410422,no,-2.272403740402434,,False
+Fire_136,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00136.JPG,0.3332584301675301,0.5088787500280887,1.0,0.3334831396649397,no,-0.6934842637456996,,False
+Fire_469,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00469.JPG,0.4334095120429992,0.5098290839232504,1.0,0.1331809759140014,no,-0.2679537629688737,,False
+Fire_99,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00099.JPG,0.124153779806998,0.5726774169597775,1.0,0.7516924403860039,no,-1.9536695708251968,,False
+Fire_408,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00408.JPG,0.2560678720474243,0.5773393749259412,1.0,0.4878642559051513,no,-1.0665072702762226,,False
+Fire_209,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00209.JPG,0.1700288900724384,0.4956484159920364,1.0,0.6599422198551232,no,-1.5854225286542618,,False
+Fire_3,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00003.JPG,0.06386296546255,0.5058252080343664,1.0,0.8722740690749,no,-2.685022247040253,,False
+Fire_517,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00517.JPG,0.1422776239431612,0.5477583750616759,1.0,0.7154447521136775,no,-1.7965002290227532,,False
+Fire_150,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00150.JPG,0.0546198560380292,0.4235849580727517,1.0,0.8907602879239415,no,-2.8511896350067776,,False
+Fire_340,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00340.JPG,0.1268767378664989,0.4319154161494225,1.0,0.7462465242670022,no,-1.9288606924387803,,False
+Fire_365,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00365.JPG,0.0288363802779135,0.4249817088712007,1.0,0.9423272394441728,no,-3.5168571664385455,,False
+Fire_355,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00355.JPG,0.1380673986097395,0.5693357498385012,1.0,0.723865202780521,no,-1.8314351173108308,,False
+Fire_353,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00353.JPG,0.1677001118659973,0.5075497080106288,1.0,0.6645997762680054,no,-1.6020154824570292,,False
+Fire_88,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00088.JPG,0.0201228078477607,0.4835732500068843,1.0,0.9597543843044783,no,-3.885573359129448,,False
+Fire_336,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00336.JPG,0.2565403206187391,0.5833394590299577,1.0,0.4869193587625218,no,-1.0640286859525754,,False
+Fire_172,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00172.JPG,0.5524887607243287,0.4321518749929964,1.0,0.1049775214486574,yes,0.210731437505254,,True
+Fire_122,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00122.JPG,0.5438800292050829,0.5103979581035674,1.0,0.0877600584101658,yes,0.1759728192253721,,True
+Fire_121,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00121.JPG,0.19102463762352,0.5443132079672068,1.0,0.61795072475296,no,-1.4433660496564666,,False
+Fire_258,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00258.JPG,0.1628029471218146,0.5129825419280678,1.0,0.6743941057563707,no,-1.6375189142348197,,False
+Fire_490,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00490.JPG,0.0111886828773007,0.3701952090486884,1.0,0.9776226342453984,no,-4.481600721887142,,False
+Fire_333,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00333.JPG,0.1552537427918238,0.5233227908611298,1.0,0.6894925144163524,no,-1.6939754662514173,,False
+Fire_295,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00295.JPG,0.0525256603128547,0.4406522910576314,1.0,0.8949486793742906,no,-2.8924980364120967,,False
+Fire_526,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00526.JPG,0.1431606794970923,0.5866120420396328,1.0,0.7136786410058152,no,-1.7892827780536875,,False
+Fire_528,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00528.JPG,0.1219583749771118,0.5082255830056965,1.0,0.7560832500457764,no,-1.9740142036182984,,False
+Fire_68,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00068.JPG,0.1278242338869606,0.5005726248491555,1.0,0.7443515322260787,no,-1.920334822744738,,False
+Fire_149,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00149.JPG,0.0133590699468371,0.4302013330161571,1.0,0.9732818601063258,no,-4.302110622976636,,False
+Fire_36,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00036.JPG,0.0060384115130924,0.3529775419738143,1.0,0.987923176973815,no,-5.103557579700077,,False
+Fire_307,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00307.JPG,0.0695616186959275,0.5022662500850856,1.0,0.860876762608145,no,-2.593442893115453,,False
+Fire_156,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00156.JPG,0.031417987538472,0.5127162500284612,1.0,0.9371640249230558,no,-3.428452578698492,,False
+Fire_260,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00260.JPG,0.0878927911543967,0.5074145419057459,1.0,0.8242144176912065,no,-2.3396397472916295,,False
+Fire_516,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00516.JPG,0.4505111575126648,0.5250752498395741,1.0,0.0989776849746704,no,-0.1986056250964684,,False
+Fire_37,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00037.JPG,0.1168103415486885,0.5248064999468625,1.0,0.766379316902623,no,-2.022988359142031,,False
+Fire_619,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00619.JPG,0.0467758320752407,0.4303185830358416,1.0,0.9064483358495186,no,-3.0144834385292505,,False
+Fire_580,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00580.JPG,0.1595410454136444,0.5739877908490598,1.0,0.6809179091727111,no,-1.6616468900009898,,False
+Fire_471,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00471.JPG,0.1212805575036961,0.5293647921644151,1.0,0.7574388849926078,no,-1.9803591499748232,,False
+Fire_565,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00565.JPG,0.0804928863195445,0.50105708418414,1.0,0.839014227360911,no,-2.4356689686619517,,False
+Fire_489,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00489.JPG,0.1405422091484069,0.5160145000554621,1.0,0.718915581703186,no,-1.810793850018621,,False
+Fire_97,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00097.JPG,0.0548194402896076,0.3583994160871953,1.0,0.8903611194207848,no,-2.8473310968636003,,False
+Fire_488,1,Sycan fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/Fire/RGB/Corrected FOV/00488.JPG,0.99218081226726,0.4397187500726431,1.0,0.98436162453452,yes,4.84332468243765,,True
+NoFire_58,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00058.JPG,0.0070989284504835,0.5793294578325003,1.0,0.9858021430990328,no,-4.940687183060668,,False
+NoFire_24,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00024.JPG,0.0076813494497814,0.5878123331349343,1.0,0.9846373011004372,no,-4.861249034685984,,False
+NoFire_74,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00074.JPG,0.0080950130832662,0.5049372918438166,1.0,0.9838099738334676,no,-4.8083791200359185,,False
+NoFire_102,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00102.JPG,0.0151737359732125,0.5307200830429792,1.0,0.9696525280535748,no,-4.172899207098266,,False
+NoFire_49,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00049.JPG,0.0040009063500873,0.5024416670203209,1.0,0.9919981872998254,no,-5.517225424619496,,False
+NoFire_26,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00026.JPG,0.0062383261514458,0.5800129158888012,1.0,0.9875233476971084,no,-5.070785511731911,,False
+NoFire_75,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00075.JPG,0.0067835357671932,0.5969282088335603,1.0,0.9864329284656136,no,-4.986450164848041,,False
+NoFire_70,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00070.JPG,0.0098578158647739,0.5159988340456039,1.0,0.9802843682704522,no,-4.6095839238071115,,False
+NoFire_72,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00072.JPG,0.0191945938318464,0.5869486660230905,1.0,0.9616108123363072,no,-3.933745409038173,,False
+NoFire_4,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00004.JPG,0.0068060681162773,0.6059107079636306,1.0,0.9863878637674452,no,-4.983111359655945,,False
+NoFire_25,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00025.JPG,0.0096014950230397,0.5037900418974459,1.0,0.9807970099539204,no,-4.636188574499286,,False
+NoFire_21,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00021.JPG,0.0053443658578189,0.586424499982968,1.0,0.989311268284362,no,-5.226353685604725,,False
+NoFire_97,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00097.JPG,0.0515103653523434,0.5804946247953922,1.0,0.896979269295313,no,-2.913087804767825,,False
+NoFire_113,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00113.JPG,0.0090487372484528,0.5132592499721795,1.0,0.9819025255030944,no,-4.696040135834515,,False
+NoFire_92,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00092.JPG,0.0176912875502497,0.5792112499475479,1.0,0.9646174248995004,no,-4.016833340484339,,False
+NoFire_23,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00023.JPG,0.0108997726975781,0.5955607919022441,1.0,0.9782004546048436,no,-4.5080537329686265,,False
+NoFire_19,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00019.JPG,0.007276625611105,0.5972474589943886,1.0,0.98544674877779,no,-4.91578480980095,,False
+NoFire_107,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00107.JPG,0.0026183037029155,0.5375827080570161,1.0,0.9947633925941688,no,-5.942606875070168,,False
+NoFire_93,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00093.JPG,0.0098822712898254,0.4318732919637114,1.0,0.9802354574203492,no,-4.607081480973712,,False
+NoFire_8,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00008.JPG,0.0057538591573868,0.5910896251443774,1.0,0.9884922816852264,no,-5.152114015114398,,False
+NoFire_73,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00073.JPG,0.0103806797995083,0.5033408340532333,1.0,0.9792386404009832,no,-4.557373977254513,,False
+NoFire_41,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00041.JPG,0.0102877957926611,0.5019687919411808,1.0,0.9794244084146776,no,-4.5664558798276085,,False
+NoFire_40,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00040.JPG,0.0150257660906053,0.5916003750171512,1.0,0.9699484678187892,no,-4.182849015513411,,False
+NoFire_101,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00101.JPG,0.0055408871402147,0.4339832500554621,1.0,0.9889182257195706,no,-5.190044362633752,,False
+NoFire_53,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00053.JPG,0.0067988320185203,0.4998482919763773,1.0,0.9864023359629592,no,-4.984182394164472,,False
+NoFire_116,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00116.JPG,0.0097952101144103,0.4471663751173764,1.0,0.9804095797711794,no,-4.6160182778498005,,False
+NoFire_7,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00007.JPG,0.0111244526060043,0.6553023748565465,1.0,0.9777510947879914,no,-4.48742286400659,,False
+NoFire_77,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00077.JPG,0.0104407007555336,0.4993081670254469,1.0,0.9791185984889328,no,-4.5515479893611746,,False
+NoFire_99,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00099.JPG,0.0346828663151072,0.5042131249792874,1.0,0.9306342673697854,no,-3.3262108844179803,,False
+NoFire_112,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00112.JPG,0.0162314222882365,0.5049198749475181,1.0,0.9675371554235268,no,-4.104441673166372,,False
+NoFire_2,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00002.JPG,0.007664590378228,0.5892069169785827,1.0,0.9846708192435438,no,-4.86345009432361,,False
+NoFire_47,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00047.JPG,0.0081682930566779,0.588066624943167,1.0,0.983663413886644,no,-4.799293483781711,,False
+NoFire_83,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00083.JPG,0.0091861916383276,0.5242668339051306,1.0,0.9816276167233448,no,-4.680825186410766,,False
+NoFire_78,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00078.JPG,0.0116826440882399,0.5811546661425382,1.0,0.97663471182352,no,-4.437899527409462,,False
+NoFire_30,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00030.JPG,0.0063319631080527,0.5068920000921935,1.0,0.9873360737838944,no,-5.055792868236782,,False
+NoFire_50,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00050.JPG,0.0085201124919594,0.5030039171688259,1.0,0.9829597750160812,no,-4.7567691188047,,False
+NoFire_1,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00001.JPG,0.0049202785063066,0.5067687090486288,1.0,0.9901594429873868,no,-5.309457720178204,,False
+NoFire_66,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00066.JPG,0.0072185202982173,0.5153597921598703,1.0,0.9855629594035652,no,-4.92386059204955,,False
+NoFire_38,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00038.JPG,0.0162841970835865,0.4389010418672114,1.0,0.967431605832827,no,-4.101141903696658,,False
+NoFire_82,0,Sycan no fire,flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)/No Fire/RGB/Corrected FOV/00082.JPG,0.0023722052574157,0.5790120421443135,1.0,0.9952555894851683,no,-6.041560244715964,,False

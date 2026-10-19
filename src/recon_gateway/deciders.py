@@ -15,9 +15,18 @@ import requests
 from .kai_decider import QUESTIONS, state_text
 
 STATUS_TO_BRIEF = {"fire": "fire", "smoke_only": "smoke only", "none": "no fire or smoke", "unclear": "indeterminate"}
-URLS = {"kai": "RECON_KAI_URL", "clef": "RECON_CLEF_URL", "clef_flash": "RECON_CLEF_FLASH_URL"}
-SEES_IMAGES = {"kai": False, "clef": True, "clef_flash": True}
-MODEL_NAMES = {"kai": "Decision-2.0-Kai-0.6B", "clef": "clef", "clef_flash": "clef-flash"}  # Kai's server accepts only its own name
+URLS = {"kai": "RECON_KAI_URL", "clef": "RECON_CLEF_URL", "clef_flash": "RECON_CLEF_FLASH_URL",
+        # vLLM Semantic Router Decision 3.0; d3_rtx is a second d3 server (RTX PRO 6000) used as a cross-check
+        "d3": "RECON_D3_URL", "d3_rtx": "RECON_D3_RTX_URL", "d3_mini": "RECON_D3_MINI_URL", "d3_flash": "RECON_D3_FLASH_URL"}
+D3_FAMILY = {"d3", "d3_rtx", "d3_mini", "d3_flash"}
+SEES_IMAGES = {"kai": False, "clef": True, "clef_flash": True, **{k: True for k in D3_FAMILY}}
+MODEL_NAMES = {"kai": "Decision-2.0-Kai-0.6B", "clef": "clef", "clef_flash": "clef-flash",  # Kai's server accepts only its own name
+               "d3": "vllm-sr/d3", "d3_rtx": "vllm-sr/d3", "d3_mini": "vllm-sr/d3-mini", "d3_flash": "vllm-sr/d3-flash"}
+
+
+def media(name, b64):
+    """d3 servers take images as data URLs; Clef takes plain base64."""
+    return f"data:image/jpeg;base64,{b64}" if name in D3_FAMILY else b64
 
 
 def available():
@@ -32,7 +41,7 @@ def decide(name, evidence, seq, headers, probes=None):
         measured["decisions"] = probes  # kai_decider.state_text verbalizes question, answer and confidence per probe
     body = {"model": MODEL_NAMES[name], "state": state_text(measured), "questions": QUESTIONS}
     if SEES_IMAGES[name]:
-        body["images"] = [f.rgb_b64(max_side=640) for f in (seq.frames[0], seq.frames[-1])]
+        body["images"] = [media(name, f.rgb_b64(max_side=640)) for f in (seq.frames[0], seq.frames[-1])]
     t0 = time.perf_counter()
     r = None
     for attempt in range(30):  # retry cold starts and 5xx only; a 4xx is a bad request and fails at once

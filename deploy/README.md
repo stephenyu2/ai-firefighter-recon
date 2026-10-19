@@ -22,11 +22,14 @@ Baseten; any host that can run these servers works.
 | `models/llm-qwen38-27b-bf16`, `-fp8`, `-int4`, `-nvfp4` | RTX PRO 6000 each | Gateway model trials. vLLM 0.31.0 docker server; weights pulled from Hugging Face at a pinned revision |
 | `models/llm-qwen3vl-4b` | L4 | The earlier Qwen3-VL-4B baseline in the trials |
 | `models/clef-27b-rtx6000`, `models/clef-flash-rtx6000` | RTX PRO 6000 | Clef and Clef-Flash in the trials, running the models' own release code |
+| `models/d3-rtx6000`, `models/d3-flash-l4` | RTX PRO 6000, L4 | d3 (the `d3_rtx` cross-check) and d3-flash in the decision-cascade trials, through `serving/d3/model.py` |
 | `training/flame3-lora` | H100 | Detector fine-tuning: `config.py` runs every variant, `config_final_giant.py` only the final DINOv2-g QLoRA |
 | `training/precision` | B200 (`config_b200.py`), RTX PRO 6000 (`config.py`) | Paired precision study; the B200 run is `experiments/full-burn-benchmark/results/precision/cv_precision_b200.txt` |
 
 Kai (Decision-2.0-Kai-0.6B) was deployed from the Baseten model library on an L4 and an RTX PRO 6000, so there is no
-config for it here. To host it yourself, use `serving/kai/model.py`.
+config for it here. The same goes for d3 on an H100 and d3-mini on an L4 in the decision-cascade trials, which also came
+from model library configs. The models and their serving instructions are on Hugging Face: [vllm-sr/d3](https://huggingface.co/vllm-sr/d3/tree/093cffbaa7be6f5dfe14252ae7e80c396c06dbd9) at `093cffba` and
+[vllm-sr/d3-mini](https://huggingface.co/vllm-sr/d3-mini/tree/0e78bbdbe3cf480ed1461c185c9e0c4fa9258011) at `0e78bbdb`. To host it yourself, use `serving/kai/model.py`.
 
 ## Push a model
 

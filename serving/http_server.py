@@ -1,6 +1,6 @@
 """Minimal HTTP wrapper for the model servers in this folder: POST /predict with a JSON body calls Model.predict.
 
-Usage: python serving/http_server.py fire_classifier --port 8010   (or kai, clef)
+Usage: python serving/http_server.py fire_classifier --port 8010   (or kai, clef, d3)
 Needs fastapi and uvicorn. Each Model has load() and predict(dict) -> dict; any host that calls those works too."""
 import argparse
 import importlib.util
@@ -30,7 +30,7 @@ def build(name):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("name", choices=["fire_classifier", "kai", "clef"])
+    p.add_argument("name", choices=["fire_classifier", "kai", "clef", "d3"])
     p.add_argument("--host", default="127.0.0.1")
     p.add_argument("--port", type=int, default=8010)
     a = p.parse_args()

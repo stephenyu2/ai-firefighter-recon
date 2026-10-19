@@ -9,8 +9,9 @@ The recon gateway calls four kinds of model. Each one runs as its own HTTP serve
 | Vision LLM | Plans extra image checks, answers yes/no image probes from log-probs, writes the brief | vLLM (flags below) | one RTX PRO 6000 per Qwen3.8 build, L4 for Qwen3-VL-4B |
 | Kai 0.6B | Optional decision model: fire status from the evidence written as sentences | `kai/model.py` | L4 or RTX PRO 6000; small enough for a laptop |
 | Clef 27B / Clef-Flash 9B | Optional decision models: same question, also see the first and last frame | `clef/model.py` | one RTX PRO 6000 each |
+| d3 26B / d3-flash 8.4B / d3-mini 4.5B | Decision models that read the images directly; d3 is the first stage of the cascade (`experiments/decision-cascade/`) | `d3/model.py` | d3: one 80 GB+ card (H100, RTX PRO 6000); d3-flash and d3-mini: one L4 |
 
-## Classifier, Kai and Clef
+## Classifier, Kai, Clef and d3
 
 Each `model.py` has a `Model` class with `load()` and `predict(dict) -> dict`. `http_server.py` wraps one in a small
 FastAPI app with `POST /predict` and `GET /health`:
@@ -21,6 +22,7 @@ DETECTOR_DIR=path/to/weights python serving/http_server.py fire_classifier --por
 python serving/http_server.py kai --port 8011
 CLEF_PATH=path/to/clef python serving/http_server.py clef --port 8012
 CLEF_PATH=path/to/clef-flash python serving/http_server.py clef --port 8013
+D3_PATH=path/to/d3 python serving/http_server.py d3 --port 8014
 ```
 
 - **Fire classifier.** `DETECTOR_DIR` holds `detector/` and, optionally, `detector_giant/`. Each folder is a
@@ -31,6 +33,13 @@ CLEF_PATH=path/to/clef-flash python serving/http_server.py clef --port 8013
   its own file-hash check.
 - **Clef.** `CLEF_PATH` is a local copy of the model repository (`Cloudflare/clef` or the Flash variant). The server
   calls the repository's own `joint_schema_model` code, so it needs that repository's requirements.
+- **d3.** `D3_PATH` is a local copy of the model repository ([`vllm-sr/d3`](https://huggingface.co/vllm-sr/d3),
+  [`d3-flash`](https://huggingface.co/vllm-sr/d3-flash) or [`d3-mini`](https://huggingface.co/vllm-sr/d3-mini), pinned to
+  the revision you tested; the cascade trials list theirs). The server loads the repository's own `d3_runtime` and needs `torch`, `transformers==5.17.0`,
+  `pillow`, `einops` and, for speed, `flash-linear-attention==0.5.2`. Images go through the runtime's strict checks
+  (PNG, JPEG or WebP, at most 8 MB and 16 MP each, at most `D3_MAX_IMAGES`), video is refused, and a bad request gets
+  422. `D3_BATCH_SIZE=4` keeps start-up memory low on a 24 GB card. The repository runs its own code at load, so
+  read it before running a new revision.
 
 Hosted deployment configs for these servers and the vLLM builds are in [`../deploy/`](../deploy/).
 
