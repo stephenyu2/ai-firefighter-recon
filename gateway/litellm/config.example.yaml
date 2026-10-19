@@ -74,3 +74,23 @@ general_settings:
       headers:
         Authorization: Bearer os.environ/UPSTREAM_API_KEY
         content-type: application/json
+    - path: /recon/d3
+      target: http://127.0.0.1:8014/predict
+      headers:
+        Authorization: Bearer os.environ/UPSTREAM_API_KEY
+        content-type: application/json
+    - path: /recon/d3-rtx
+      target: http://127.0.0.1:8015/predict
+      headers:
+        Authorization: Bearer os.environ/UPSTREAM_API_KEY
+        content-type: application/json
+    - path: /recon/d3-mini
+      target: http://127.0.0.1:8016/predict
+      headers:
+        Authorization: Bearer os.environ/UPSTREAM_API_KEY
+        content-type: application/json
+    - path: /recon/d3-flash
+      target: http://127.0.0.1:8017/predict
+      headers:
+        Authorization: Bearer os.environ/UPSTREAM_API_KEY
+        content-type: application/json

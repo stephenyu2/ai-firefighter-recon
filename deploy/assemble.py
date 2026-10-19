@@ -24,6 +24,7 @@ SYCAN = DATA / "flame3_cv/FLAME 3 CV Dataset (Sycan Marsh)"
 CODE = {
     "fire-classifier": [("serving/fire_classifier/model.py", "model/model.py")],
     "clef": [("serving/clef/model.py", "model/model.py")],
+    "d3": [("serving/d3/model.py", "model/model.py")],
     "precision-probe": [("experiments/full-burn-benchmark/precision_probe.py", "model/probe.py")],
     "flame3-lora": [("training/flame3-lora/train_cv.py", "train_cv.py"), ("training/flame3-lora/run.sh", "run.sh"),
                     ("training/flame3-lora/index.csv", "index.csv"),
@@ -35,7 +36,7 @@ CODE = {
 
 
 def kind(name):
-    for k in ("fire-classifier", "clef", "precision-probe"):
+    for k in ("fire-classifier", "clef", "precision-probe", "d3"):
         if name.startswith(k):
             return k
     return name if name in ("flame3-lora", "precision") else None

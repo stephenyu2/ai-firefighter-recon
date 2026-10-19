@@ -1,0 +1,26 @@
+model_name: recon-d3-rtx6000
+description: "d3 27B decision model (vLLM Semantic Router Decision 3.0) with image input (strict loading, no video), BF16, package runtime"
+python_version: py312
+requirements:
+  - torch==2.11.0
+  - torchvision==0.26.0
+  - transformers==5.17.0
+  - accelerate>=1.10
+  - safetensors>=0.6
+  - huggingface_hub>=1.0
+  - flash-linear-attention==0.5.2
+  - einops==0.8.2
+  - pillow>=10.0
+weights:
+  - source: "hf://vllm-sr/d3@093cffbaa7be6f5dfe14252ae7e80c396c06dbd9"
+    mount_location: "/models/d3"
+environment_variables:
+  D3_PATH: /models/d3
+  HF_HUB_OFFLINE: "1"
+resources:
+  accelerator: RTX_PRO_6000
+  use_gpu: true
+runtime:
+  predict_concurrency: 4
+  health_checks:
+    startup_threshold_seconds: 1800
