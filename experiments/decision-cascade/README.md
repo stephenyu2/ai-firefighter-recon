@@ -55,12 +55,15 @@ The threshold and the retry limit were fixed before any run.
 
 Run names:
 
-| Name | Model | Setup |
+| Name | Model (Hugging Face, revision tested) | Setup |
 |---|---|---|
-| `d3` | vllm-sr/d3 | one H100 |
-| `d3_rtx` | vllm-sr/d3 | one RTX PRO 6000, `serving/d3/model.py`; a cross-check that gave the same answers |
-| `d3_mini` | vllm-sr/d3-mini | one L4 |
-| `d3_flash` | vllm-sr/d3-flash | one L4, `serving/d3/model.py` |
+| `d3` | [vllm-sr/d3](https://huggingface.co/vllm-sr/d3/tree/093cffbaa7be6f5dfe14252ae7e80c396c06dbd9) at `093cffba` | one H100 |
+| `d3_rtx` | [vllm-sr/d3](https://huggingface.co/vllm-sr/d3/tree/093cffbaa7be6f5dfe14252ae7e80c396c06dbd9) at `093cffba` | one RTX PRO 6000, `serving/d3/model.py`; a cross-check that gave the same answers |
+| `d3_mini` | [vllm-sr/d3-mini](https://huggingface.co/vllm-sr/d3-mini/tree/0e78bbdbe3cf480ed1461c185c9e0c4fa9258011) at `0e78bbdb` | one L4 |
+| `d3_flash` | [vllm-sr/d3-flash](https://huggingface.co/vllm-sr/d3-flash/tree/f6075bff3c0f7d5704e353d0fb2ebf94888d1691) at `f6075bff` | one L4, `serving/d3/model.py` |
+
+Each model repository holds the weights, the model's own runtime and its serving instructions (see the model cards).
+To serve a model yourself, use those instructions or `serving/d3/model.py`.
 
 The earlier methods are compared from their saved results in `../gateway-model-trials/results`; they were not rerun.
 In the saved escalated runs, Qwen3.8's writeups quote the decision model by its earlier run label, `d3g`, which is `d3`
@@ -76,7 +79,8 @@ python summarize.py
 
 A full rerun needs:
 
-- the gateway proxy with the Qwen3.8 BF16 route, the classifier and the four d3 routes (see `gateway/` and `serving/`);
+- the gateway proxy with the Qwen3.8 BF16 route, the classifier and the four d3 routes (see `gateway/` and `serving/`;
+  the models come from the Hugging Face repositories above);
 - the FLAME 3 data under `RECON_DATA_ROOT`, with the Florida frames prepared by `../full-burn-benchmark/prep_florida.py`.
 
 Then run `./run_all.sh`. The full burn alone takes about 50 minutes, one window at a time.

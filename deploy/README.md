@@ -27,8 +27,9 @@ Baseten; any host that can run these servers works.
 | `training/precision` | B200 (`config_b200.py`), RTX PRO 6000 (`config.py`) | Paired precision study; the B200 run is `experiments/full-burn-benchmark/results/precision/cv_precision_b200.txt` |
 
 Kai (Decision-2.0-Kai-0.6B) was deployed from the Baseten model library on an L4 and an RTX PRO 6000, so there is no
-config for it here. The same goes for d3 on an H100 and d3-mini on an L4 in the decision-cascade trials: both came from
-the model library's configs. `serving/d3/model.py` serves the same weights, and on d3 it gave the same answers. To host it yourself, use `serving/kai/model.py`.
+config for it here. The same goes for d3 on an H100 and d3-mini on an L4 in the decision-cascade trials, which also came
+from model library configs. The models and their serving instructions are on Hugging Face: [vllm-sr/d3](https://huggingface.co/vllm-sr/d3/tree/093cffbaa7be6f5dfe14252ae7e80c396c06dbd9) at `093cffba` and
+[vllm-sr/d3-mini](https://huggingface.co/vllm-sr/d3-mini/tree/0e78bbdbe3cf480ed1461c185c9e0c4fa9258011) at `0e78bbdb`. To host it yourself, use `serving/kai/model.py`.
 
 ## Push a model
 

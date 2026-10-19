@@ -33,8 +33,9 @@ D3_PATH=path/to/d3 python serving/http_server.py d3 --port 8014
   its own file-hash check.
 - **Clef.** `CLEF_PATH` is a local copy of the model repository (`Cloudflare/clef` or the Flash variant). The server
   calls the repository's own `joint_schema_model` code, so it needs that repository's requirements.
-- **d3.** `D3_PATH` is a local copy of the model repository (`vllm-sr/d3`, `d3-flash` or `d3-mini`, pinned to the
-  revision you tested). The server loads the repository's own `d3_runtime` and needs `torch`, `transformers==5.17.0`,
+- **d3.** `D3_PATH` is a local copy of the model repository ([`vllm-sr/d3`](https://huggingface.co/vllm-sr/d3),
+  [`d3-flash`](https://huggingface.co/vllm-sr/d3-flash) or [`d3-mini`](https://huggingface.co/vllm-sr/d3-mini), pinned to
+  the revision you tested; the cascade trials list theirs). The server loads the repository's own `d3_runtime` and needs `torch`, `transformers==5.17.0`,
   `pillow`, `einops` and, for speed, `flash-linear-attention==0.5.2`. Images go through the runtime's strict checks
   (PNG, JPEG or WebP, at most 8 MB and 16 MP each, at most `D3_MAX_IMAGES`), video is refused, and a bad request gets
   422. `D3_BATCH_SIZE=4` keeps start-up memory low on a 24 GB card. The repository runs its own code at load, so
