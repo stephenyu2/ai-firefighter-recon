@@ -57,12 +57,20 @@ flowchart LR
    - **Unsupported claims.** A direction or trend that tracking does not support becomes "indeterminate". Acres, GPS,
      speeds and crew instructions in the summary and inferences are replaced with "[out of scope]". Overall confidence
      drops from high to medium when fire status or direction is indeterminate (unless there is no fire or smoke).
-8. **Decision models (optional, `--deciders kai,clef,clef_flash`).** Each one answers the same fire-status question
-   from the measurements written as sentences. Clef and Clef-Flash also see the first and last frames. Their calls are
-   reported next to the brief and never change it.
+8. **Decision models (optional, `--deciders kai,clef,clef_flash`; also `d3`, `d3_mini`, `d3_flash`).** Each one answers
+   the same fire-status question from the measurements written as sentences. Clef, Clef-Flash and the d3 models also see
+   the first and last frames. Their calls are reported next to the brief and never change it.
 
 Every LLM call uses temperature 0 and a fixed seed. The observer guidance (`prompts.WATCH_FOR`, `--guidance`) is
 optional and can be turned on separately for the planner, the image probes and the writeup.
+
+## Decision-model cascade (optional)
+
+`recon_gateway.cascade` puts a decision model in front of the LLM. d3 reads all 8 frames, the observer guidance and
+the thermal facts only (the RGB detector's counts are left out, because they pulled d3 toward "no fire"). If its top
+status probability is at least 0.80 and the answer is not "unclear", that is the call. Otherwise `agent.run` does a
+deeper pass with `probe_all=True` (guided image checks on every frame) and d3's probabilities passed in as
+`extra_evidence`; failed passes are retried up to 2 times. Results: `experiments/decision-cascade/`.
 
 ## Output
 

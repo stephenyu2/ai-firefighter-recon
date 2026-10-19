@@ -57,6 +57,7 @@ Results so far:
 | [`experiments/flame3-baselines`](experiments/flame3-baselines/) | Which detector and protocol for fire/no-fire on FLAME 3 | `report/flame3_results.html` |
 | [`experiments/full-burn-benchmark`](experiments/full-burn-benchmark/) | How fast and how accurate is the detector over a whole burn, on which GPU and precision, and on a site it never saw | `report/full_burn_report.html` |
 | [`experiments/gateway-model-trials`](experiments/gateway-model-trials/) | Which LLM build should run the gateway, should a decision model make the fire call, and does an observer guidance prompt help | `report/gateway_model_trials.html` |
+| [`experiments/decision-cascade`](experiments/decision-cascade/) | Can the d3 decision models read the images and make the fire call, and does a cascade (d3 first, Qwen3.8 on low confidence) hold up over a whole burn | `report/decision_cascade_trials.html` |
 
 Main findings so far:
 
@@ -65,6 +66,9 @@ Main findings so far:
   measurement rule on guided BF16 image checks caught 4 of 7 with no false alarms, but it needs more no-fire RGB footage
   before it can override the writeup.
 - **Speed:** a whole burn takes seconds of GPU time, and uploads dominate end-to-end time.
+- **Decision cascade:** d3 deciding first and handing low-confidence windows to Qwen3.8 ties the best method on the test
+  sequences (17 of 20) and called every labeled window of the Florida burn correctly, at 2.2 s per image. Its remaining
+  misses are small RGB-only fires that d3 calls "no fire" with high confidence.
 
 ## Repository structure
 
