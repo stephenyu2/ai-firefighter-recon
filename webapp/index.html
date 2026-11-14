@@ -16,7 +16,7 @@
     <span class="sub">AI Firefighter &middot; drone imagery to air attack recon brief</span>
   </div>
   <div class="header-right">
-    <span class="badge mock">Mock data</span>
+    <span class="badge real">Real pipeline output</span>
     <button id="theme" type="button">Theme</button>
   </div>
 </header>
@@ -28,10 +28,55 @@
   </aside>
 
   <section class="stage">
-    <div class="modelbar">
-      <span class="modelbar-label">Model</span>
-      <div class="seg" id="model-seg" role="group" aria-label="Brief model"></div>
+    <div class="flow" id="flow">
+      <div class="flow-head">
+        <h3>Decision pipeline</h3>
+        <div class="flow-ctrl">
+          <button id="flow-begin" type="button">Begin analysis</button>
+          <button id="flow-next" type="button" hidden>Next step</button>
+          <button id="flow-reset" type="button" hidden>Reset</button>
+        </div>
+      </div>
+      <div class="flow-diagram" id="flow-diagram">
+        <svg class="flow-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <!-- decision path: thermal informs d3; d3 to gate; gate to final (direct or down to Qwen) -->
+          <path class="ln" id="ln-therm-d3" d="M27,30 L30,36" vector-effect="non-scaling-stroke"/>
+          <path class="ln" id="ln-d3-gate" d="M48,38 L51,38" vector-effect="non-scaling-stroke"/>
+          <path class="ln" id="ln-gate-final" d="M67,38 L72,38" vector-effect="non-scaling-stroke"/>
+          <path class="ln dot" id="ln-gate-qwen" d="M59,46 L59,72" vector-effect="non-scaling-stroke"/>
+          <path class="ln dot" id="ln-qwen-final" d="M68,80 L80,46" vector-effect="non-scaling-stroke"/>
+          <!-- evidence path: DINOv2 + CLIP feed Qwen, which writes the brief -->
+          <path class="ln soft" id="ln-ev-qwen" d="M14,59 L14,70 L49,80" vector-effect="non-scaling-stroke"/>
+        </svg>
+
+        <div class="node measure" id="n-measure">
+          <span class="nt">Measure</span>
+          <div class="readouts">
+            <div class="ro feed"><span class="ro-k">Thermal</span><span class="ro-v therm mono" id="m-therm">&mdash;</span></div>
+            <div class="ro"><span class="ro-k">DINOv2</span><span class="ro-g"><span class="ro-v det mono" id="m-det">&mdash;</span><span class="ro-u">fire</span></span></div>
+            <div class="ro"><span class="ro-k">CLIP</span><span class="ro-g"><span class="ro-v clip mono" id="m-clip">&mdash;</span><span class="ro-u">fire</span></span></div>
+          </div>
+        </div>
+
+        <div class="node d3card" id="n-d3">
+          <span class="nt">d3</span>
+          <div class="readouts">
+            <div class="ro" id="d3row-fire"><span class="ro-k">fire</span><span class="ro-v mono" id="d3-fire">&mdash;</span></div>
+            <div class="ro" id="d3row-smoke_only"><span class="ro-k">smoke</span><span class="ro-v mono" id="d3-smoke">&mdash;</span></div>
+            <div class="ro" id="d3row-none"><span class="ro-k">none</span><span class="ro-v mono" id="d3-none">&mdash;</span></div>
+            <div class="ro" id="d3row-unclear"><span class="ro-k">unclear</span><span class="ro-v mono" id="d3-unclear">&mdash;</span></div>
+          </div>
+        </div>
+
+        <div class="node gate" id="n-gate"><span class="nt">Confident?</span><span class="nd" id="nd-gate">&middot;</span></div>
+        <div class="node second" id="n-qwen"><span class="nt">Qwen 3.8</span><span class="nd">second opinion</span><span class="node-x">&times;</span></div>
+        <div class="node" id="n-final"><span class="nt">Final brief</span><span class="nd" id="nd-final">&middot;</span></div>
+        <div class="ev-label" id="ev-label">DINOv2 + CLIP</div>
+        <div class="to-brief" id="to-brief">Qwen&rsquo;s brief &rarr;</div>
+      </div>
+      <div class="flow-caption" id="flow-caption">Press <b>Begin analysis</b> to step through how this sequence is decided.</div>
     </div>
+
     <div class="viewer">
       <canvas id="frame"></canvas>
       <div class="stamp" id="stamp-l"></div>
@@ -45,19 +90,16 @@
     </div>
 
     <div class="toggles">
-      <label><input id="tg-mask" type="checkbox" checked><span class="swatch" style="background:rgba(255,90,20,.85)"></span>Thermal mask</label>
-      <label><input id="tg-score" type="checkbox" checked><span class="swatch" style="background:#ffd27a"></span>Detection score</label>
-      <label><input id="tg-track" type="checkbox" checked><span class="swatch" style="background:#78dcff"></span>Truth path</label>
-      <label><input id="tg-heading" type="checkbox" checked><span class="swatch" style="background:#ffffff;border:1px solid #999;border-radius:50%"></span>Model claim (size + heading)</label>
+      <label><input id="tg-mask" type="checkbox" checked><span class="swatch" style="background:rgba(255,90,20,.85)"></span>Thermal hot area</label>
+      <label><input id="tg-score" type="checkbox" checked><span class="swatch" style="background:#ffd27a"></span>DINOv2</label>
+      <label><input id="tg-clip" type="checkbox" checked><span class="swatch" style="background:#9ccbf0"></span>CLIP</label>
+      <label><input id="tg-thermal" type="checkbox" checked><span class="swatch" style="background:#f0a06a"></span>Thermal reading</label>
     </div>
 
     <div class="chartwrap">
       <div class="chart-head">
-        <h3>Fire size and detector confidence over time</h3>
-        <div class="legend">
-          <span><i style="background:var(--series-area)"></i>Fire size (thermal)</span>
-          <span><i style="background:var(--series-score)"></i>Detector confidence (RGB)</span>
-        </div>
+        <h3>Per-frame measurements</h3>
+        <div class="legend" id="chart-legend"></div>
       </div>
       <div class="chartbox" id="chartbox">
         <canvas id="chart"></canvas>
@@ -68,19 +110,7 @@
 
   <aside class="panel brief">
     <h2>Recon brief</h2>
-    <div class="brief-body">
-      <div id="brief-single">
-      <div class="ref-line" id="ref-line"></div>
-      <div class="field" id="f-presence"><div class="k">Presence</div><div class="v"></div></div>
-      <div class="field" id="f-extent"><div class="k">Extent</div><div class="v"></div></div>
-      <div class="field" id="f-direction"><div class="k">Direction</div><div class="v"></div></div>
-      <div class="field" id="f-trend"><div class="k">Trend</div><div class="v"></div></div>
-      <div class="field" id="f-confidence"><div class="k">Confidence</div><div class="v"></div></div>
-      <div class="field" id="f-limits"><div class="k">Limitations</div><div class="v"></div></div>
-      </div>
-      <div id="brief-compare" hidden></div>
-    </div>
-    <div class="thermal-badge" id="badge"></div>
+    <div class="brief-body" id="brief-body"></div>
   </aside>
 </main>
 
