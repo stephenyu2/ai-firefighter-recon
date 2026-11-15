@@ -98,6 +98,27 @@ Main findings so far:
 ```bash
 git clone https://github.com/stephenyu2/ai-firefighter-recon
 cd ai-firefighter-recon
+```
+
+### See the replay console (no GPU)
+
+The front-end demo replays saved pipeline output, so it needs no servers, model
+weights, or GPU. From the repo root:
+
+```bash
+python3 -m http.server --directory webapp 8000
+# then open http://localhost:8000
+```
+
+Pick a sequence on the left, then step through its decision with "Begin
+analysis" and "Next step": the d3 cascade either resolves the fire call itself
+or escalates to the Qwen writeup. Details in [`webapp/README.md`](webapp/README.md).
+
+### Run the full pipeline
+
+The rest of this section needs the model servers. To run the Python side:
+
+```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
