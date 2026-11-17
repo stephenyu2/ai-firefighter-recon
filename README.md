@@ -114,6 +114,9 @@ Pick a sequence on the left, then step through its decision with "Begin
 analysis" and "Next step": the d3 cascade either resolves the fire call itself
 or escalates to the Qwen writeup. Details in [`webapp/README.md`](webapp/README.md).
 
+A 90-second walkthrough is on YouTube: [demo video](https://www.youtube.com/watch?v=f_WylvfU87s).
+The narration it follows is in [`webapp/demo_script.md`](webapp/demo_script.md).
+
 ### Run the full pipeline
 
 The rest of this section needs the model servers. To run the Python side:
