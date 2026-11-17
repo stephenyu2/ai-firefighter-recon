@@ -68,13 +68,24 @@
           </div>
         </div>
 
-        <div class="node gate" id="n-gate"><span class="nt">Confident?</span><span class="nd" id="nd-gate">&middot;</span></div>
+        <div class="node gate" id="n-gate">
+          <span class="nt">Confident?</span>
+          <span class="gate-cmp mono"><span id="gate-p">&mdash;</span><span id="gate-op">&ge; 80%</span></span>
+          <span class="nd" id="nd-gate">&middot;</span>
+        </div>
         <div class="node second" id="n-qwen"><span class="nt">Qwen 3.8</span><span class="nd">second opinion</span><span class="node-x">&times;</span></div>
         <div class="node" id="n-final"><span class="nt">Final brief</span><span class="nd" id="nd-final">&middot;</span></div>
         <div class="ev-label" id="ev-label">DINOv2 + CLIP</div>
         <div class="to-brief" id="to-brief">Qwen&rsquo;s brief &rarr;</div>
       </div>
       <div class="flow-caption" id="flow-caption">Press <b>Begin analysis</b> to step through how this sequence is decided.</div>
+      <div class="toolcalls" id="toolcalls" hidden>
+        <div class="tc-head">
+          <span class="tc-title">Qwen&rsquo;s tool calls</span>
+          <span class="tc-note">evidence for the brief</span>
+        </div>
+        <ol class="tc-list mono" id="tc-list"></ol>
+      </div>
     </div>
 
     <div class="viewer">
@@ -115,6 +126,8 @@
 </main>
 
 <script src="data.js"></script>
+<script src="frames/manifest.js"></script>
+<script src="tool_calls.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

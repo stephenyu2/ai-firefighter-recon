@@ -46,16 +46,63 @@
       var srcTag = s.has_thermal
         ? '<span class="tag">thermal</span>'
         : '<span class="tag">RGB only</span>';
+      var full = DEMO.sequences[s.id];
+      var escalated = full && full.cascade && full.cascade.escalated;
+      var pathTag = escalated ? '<span class="tag esc">escalated</span>' : '';
       var resTag = s.correct
         ? '<span class="tag ok">correct</span>'
         : '<span class="tag miss">miss</span>';
       b.innerHTML =
         '<span class="name">' + esc(s.display_name) + "</span>" +
-        '<span class="meta">' + srcTag + resTag + "</span>";
+        '<span class="meta">' + srcTag + pathTag + resTag + "</span>";
       b.addEventListener("click", function () { selectSeq(s.id); });
       li.appendChild(b);
       list.appendChild(li);
     });
+  }
+
+  // ---- Real drone stills ------------------------------------------------
+  // The actual RGB frames and thermal hot-area PNGs live in frames/ and are
+  // indexed by frames/manifest.js (window.FRAMES), keyed by sequence id and the
+  // same f01..f08 order data.js uses. Images load async; getImg caches them and
+  // redraws the current frame once each one is ready.
+  var imgCache = {};
+  function getImg(url) {
+    if (!url) return null;
+    var e = imgCache[url];
+    if (e) return e;
+    e = { img: new Image(), ok: false };
+    e.img.onload = function () {
+      e.ok = true;
+      var seq = DEMO.sequences[state.seqId];
+      if (seq) drawFrame(seq, state.i);
+    };
+    e.img.src = url;
+    imgCache[url] = e;
+    return e;
+  }
+  function frameAssets(seq, i) {
+    var F = window.FRAMES;
+    if (!F || !F.sequences) return null;
+    var s = F.sequences[seq.sequence_id];
+    return s && s.frames[i] ? s.frames[i] : null;
+  }
+  function preloadSeq(seq) {
+    var F = window.FRAMES;
+    if (!F || !F.sequences) return;
+    var s = F.sequences[seq.sequence_id];
+    if (!s) return;
+    s.frames.forEach(function (fr) {
+      getImg(fr.rgb);
+      if (fr.overlay) getImg(fr.overlay);
+      if (fr.truth_overlay) getImg(fr.truth_overlay);
+    });
+  }
+  // Contain-fit a wxh image inside a W x H box, centered (letterboxed).
+  function fitRect(iw, ih, W, H) {
+    var k = Math.min(W / iw, H / ih);
+    var w = iw * k, h = ih * k;
+    return { x: (W - w) / 2, y: (H - h) / 2, w: w, h: h };
   }
 
   function selectSeq(id) {
@@ -63,6 +110,7 @@
     state.i = 0;
     stop();
     var seq = DEMO.sequences[id];
+    preloadSeq(seq);
     document.querySelectorAll(".seq-item").forEach(function (el) {
       el.setAttribute("aria-current", String(el.getAttribute("data-id") === id));
     });
@@ -89,6 +137,8 @@
       : ["measure", "d3", "gate", "final"];
     state.flowStep = -1;
     state.measureShown = state.d3Shown = state.briefShown = false;
+    state.gateFilled = false;
+    state.tcBuilt = null;
     cancelAnims();
     // Nothing is revealed until you step onto its node.
     ["#m-det", "#m-clip", "#m-therm", "#d3-fire", "#d3-smoke", "#d3-none", "#d3-unclear"]
@@ -96,6 +146,9 @@
     ["fire", "smoke_only", "none", "unclear"].forEach(function (k) {
       document.getElementById("d3row-" + k).classList.remove("win");
     });
+    $("#n-d3").classList.remove("decided");
+    $("#gate-p").textContent = "—";
+    $("#n-gate").classList.remove("pass", "fail");
     $("#nd-final").innerHTML = esc(seq.cascade.final_status) + (seq.cascade.correct ? " &check;" : " &times;");
     $("#brief-body").innerHTML =
       '<p class="brief-wait">Step through to the <b>Final brief</b> to see the result.</p>';
@@ -176,9 +229,22 @@
     });
     // Once the gate is reached, show its verdict and the Qwen node's fate.
     var gateReached = flowReached("gate");
+    // Dim the statuses d3 did not pick only once the walkthrough moves on to the
+    // gate, so the full distribution is visible on the d3 step itself.
+    $("#n-d3").classList.toggle("decided", gateReached);
     $("#n-qwen").classList.toggle("bypassed", bypass && gateReached);
     if (bypass && gateReached) $("#n-qwen").classList.remove("lit");
     $("#nd-gate").innerHTML = gateReached ? (bypass ? "yes" : "no &rarr; escalate") : "&middot;";
+
+    // The gate box shows d3's top probability landing against the accept bar:
+    // the winning percent "arrives" in the box and is compared to >= 80%.
+    var acc = Math.round((c.accept_p || 0.8) * 100);
+    $("#gate-op").innerHTML = (bypass ? "&ge; " : "&lt; ") + acc + "%";
+    $("#n-gate").classList.toggle("pass", gateReached && bypass);
+    $("#n-gate").classList.toggle("fail", gateReached && !bypass);
+    if (gateReached) {
+      if (!state.gateFilled) { countUp("#gate-p", Math.round(c.decider_top_p * 100), 0, "%"); state.gateFilled = true; }
+    } else { $("#gate-p").textContent = "—"; state.gateFilled = false; }
 
     // Connectors. Only the thermal reading feeds d3; detector and CLIP stay as
     // evidence, so the lit line runs from Measure (thermal) into d3.
@@ -196,6 +262,8 @@
     dia.classList.toggle("brief-on", flowReached("final"));
     $("#to-brief").innerHTML = bypass ? "d3&rsquo;s call &rarr;" : "Qwen&rsquo;s brief &rarr;";
 
+    renderToolCalls(seq);
+
     // Buttons.
     var started = state.flowStep >= 0;
     var done = state.flowStep >= state.flowSteps.length - 1;
@@ -204,6 +272,43 @@
     $("#flow-reset").hidden = !started;
 
     $("#flow-caption").innerHTML = flowCaption(seq);
+  }
+
+  // Qwen's real tool calls on the escalated sequences, revealed once the
+  // walkthrough reaches the Qwen node. Data comes from tool_calls.js (pulled
+  // from the recorded planner traces). These feed the brief, not the fire call.
+  function renderToolCalls(seq) {
+    var panel = $("#toolcalls"), list = $("#tc-list");
+    var data = window.TOOL_CALLS && window.TOOL_CALLS[seq.sequence_id];
+    var show = !!(data && seq.cascade.escalated && flowReached("qwen"));
+    panel.hidden = !show;
+    if (!show) { list.innerHTML = ""; state.tcBuilt = null; return; }
+    // Build once per reveal; the items then stagger in one after another.
+    if (state.tcBuilt === seq.sequence_id) return;
+    state.tcBuilt = seq.sequence_id;
+    var html = "";
+    data.calls.forEach(function (c, i) {
+      var delay = ' style="animation-delay:' + (i * 0.42).toFixed(2) + 's"';
+      if (c.tool === "finish") {
+        html += '<li class="tc-call finish"' + delay + '><span class="tc-name">finish()</span>' +
+          '<span class="tc-ret">enough evidence &rarr; write the brief</span></li>';
+        return;
+      }
+      var rets = c.probes.map(function (p) {
+        var hot = p.q === "flames" && p.a === "yes";
+        return '<span class="tc-p' + (hot ? " hot" : "") + '">' + p.q + ' <b>' + p.a + '</b> ' + p.p.toFixed(2) + '</span>';
+      }).join('<span class="tc-dot">&middot;</span>');
+      html += '<li class="tc-call decide"' + delay + '><span class="tc-name">decide(<span class="tc-frame">' +
+        c.frame + '</span>)</span><span class="tc-ret">' + rets + '</span></li>';
+    });
+    list.innerHTML = html;
+  }
+
+  function probedIndices(seq) {
+    var d = window.TOOL_CALLS && window.TOOL_CALLS[seq.sequence_id];
+    if (!d) return [];
+    return d.calls.filter(function (c) { return c.tool === "decide" && c.frame; })
+      .map(function (c) { return parseInt(c.frame.slice(1), 10) - 1; });
   }
 
   function setLine(id, on) {
@@ -218,11 +323,12 @@
     if (cur === "measure") return "Three readings per frame: <b>DINOv2</b> (detector), <b>CLIP</b>, and the " +
       "deterministic 80&deg;C thermal hot-area. Thermal feeds d3's call; DINOv2 and CLIP feed the written brief.";
     if (cur === "d3") return "<b>d3</b> looks at all the frames itself and calls it <b>" + esc(c.decider_status) +
-      "</b>, " + p + "% sure. Only the thermal reading feeds in; DINOv2 and CLIP stay as evidence.";
+      "</b>, " + p + "% sure.";
     if (cur === "gate") return c.escalated
       ? p + "% sure is under d3's " + acc + "% confidence bar, so it escalates to <b>Qwen 3.8</b> for a closer look."
       : p + "% sure clears d3's " + acc + "% confidence bar, so the <b>Qwen 3.8</b> second opinion is skipped.";
-    if (cur === "qwen") return "<b>Qwen 3.8-27B</b> takes a deeper look, checking every frame, then writes the brief.";
+    if (cur === "qwen") return "<b>Qwen 3.8</b> picks specific frames and calls the <b>decide</b> tool to ask about them, " +
+      "then <b>finish</b>. The calls below are what it ran, and feed the brief.";
     if (cur === "final") {
       var verdict = c.correct
         ? "matches the ground truth (" + esc(seq.truth) + ")"
@@ -319,54 +425,71 @@
     return { ctx: ctx, w: r.width, h: r.height };
   }
 
-  // Placeholder scene drawn from the numbers (no real drone stills bundled). The
-  // thermal hot area is drawn as an orange blob at the brief's location word,
-  // sized to the measured hot-area share. The score chip is the real detector
-  // p(fire) for the frame.
+  // The real drone still for this frame, drawn to fill the viewer, with the
+  // thermal hot-area PNG registered on top at the same fit. If the image has not
+  // loaded yet (or the manifest is missing), it falls back to a synthetic IR
+  // field with the measured hot area as a blob, so the page never shows blank.
   function drawFrame(seq, i) {
     var c = $("#frame");
     var s = sizeCanvas(c), ctx = s.ctx, W = s.w, H = s.h;
     var cur = seq.frames[i];
+    var fa = frameAssets(seq, i);
 
-    // No real drone stills are bundled, so the frame is a thermal-style field
-    // (dark IR gradient, faint grid, vignette, HUD corner ticks) with the real
-    // measured hot area drawn on top. It is an honest stand-in, not a photo.
-    var g = ctx.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, "#14171c"); g.addColorStop(1, "#0a0c10");
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = "rgba(130,150,160,0.06)"; ctx.lineWidth = 1;
-    for (var gx = 1; gx < 8; gx++) { ctx.beginPath(); ctx.moveTo(gx / 8 * W, 0); ctx.lineTo(gx / 8 * W, H); ctx.stroke(); }
-    for (var gy = 1; gy < 5; gy++) { ctx.beginPath(); ctx.moveTo(0, gy / 5 * H); ctx.lineTo(W, gy / 5 * H); ctx.stroke(); }
-    var vg = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.2, W / 2, H / 2, Math.max(W, H) * 0.7);
-    vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,0.5)");
-    ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#0a0c10"; ctx.fillRect(0, 0, W, H);
+
+    var drewPhoto = false;
+    if (fa) {
+      var rgb = getImg(fa.rgb);
+      if (rgb && rgb.ok) {
+        var r = fitRect(fa.width || rgb.img.naturalWidth, fa.height || rgb.img.naturalHeight, W, H);
+        ctx.drawImage(rgb.img, r.x, r.y, r.w, r.h);
+        drewPhoto = true;
+        if (toggles.mask) {
+          var ovUrl = fa.overlay || fa.truth_overlay;
+          if (ovUrl) { var ov = getImg(ovUrl); if (ov && ov.ok) ctx.drawImage(ov.img, r.x, r.y, r.w, r.h); }
+        }
+      }
+    }
+
+    // Fallback synthetic scene (only while the real still loads, or if missing).
+    if (!drewPhoto) {
+      var g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, "#14171c"); g.addColorStop(1, "#0a0c10");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = "rgba(130,150,160,0.06)"; ctx.lineWidth = 1;
+      for (var gx = 1; gx < 8; gx++) { ctx.beginPath(); ctx.moveTo(gx / 8 * W, 0); ctx.lineTo(gx / 8 * W, H); ctx.stroke(); }
+      for (var gy = 1; gy < 5; gy++) { ctx.beginPath(); ctx.moveTo(0, gy / 5 * H); ctx.lineTo(W, gy / 5 * H); ctx.stroke(); }
+      var hasHot = cur.radius_frac != null && cur.radius_frac > 0 && cur.centroid;
+      if (hasHot && toggles.mask) {
+        var cx = cur.centroid[0] * W, cy = cur.centroid[1] * H;
+        var rad = cur.radius_frac * Math.min(W, H) * 1.6;
+        var fg = ctx.createRadialGradient(cx, cy, 1, cx, cy, rad * 1.1);
+        fg.addColorStop(0, "rgba(255,236,150,0.95)");
+        fg.addColorStop(0.4, "rgba(255,150,40,0.85)");
+        fg.addColorStop(1, "rgba(200,40,0,0)");
+        ctx.fillStyle = fg;
+        ctx.beginPath(); ctx.arc(cx, cy, rad * 1.1, 0, 7); ctx.fill();
+      }
+    }
+
+    // HUD corner ticks over whatever was drawn.
     ctx.strokeStyle = "rgba(180,200,210,0.22)"; ctx.lineWidth = 2;
     var tk = 16;
-    [[14, 14, 1, 1], [W - 14, 14, -1, 1], [14, H - 14, 1, -1], [W - 14, H - 14, -1, -1]].forEach(function (c) {
-      ctx.beginPath(); ctx.moveTo(c[0], c[1] + c[3] * tk); ctx.lineTo(c[0], c[1]); ctx.lineTo(c[0] + c[2] * tk, c[1]); ctx.stroke();
+    [[14, 14, 1, 1], [W - 14, 14, -1, 1], [14, H - 14, 1, -1], [W - 14, H - 14, -1, -1]].forEach(function (p) {
+      ctx.beginPath(); ctx.moveTo(p[0], p[1] + p[3] * tk); ctx.lineTo(p[0], p[1]); ctx.lineTo(p[0] + p[2] * tk, p[1]); ctx.stroke();
     });
 
-    var hasHot = cur.radius_frac != null && cur.radius_frac > 0 && cur.centroid;
-    if (hasHot) {
-      var cx = cur.centroid[0] * W, cy = cur.centroid[1] * H;
-      var rad = cur.radius_frac * Math.min(W, H) * 1.6;
-      if (toggles.mask) {
-        ctx.fillStyle = "rgba(255, 70, 0, 0.28)";
-        ctx.strokeStyle = "rgba(255, 120, 40, 0.9)";
-        ctx.lineWidth = 2; ctx.setLineDash([5, 4]);
-        ctx.beginPath(); ctx.arc(cx, cy, rad, 0, 7); ctx.fill(); ctx.stroke();
-        ctx.setLineDash([]);
-      }
-      var fg = ctx.createRadialGradient(cx, cy, 1, cx, cy, rad * 1.1);
-      fg.addColorStop(0, "rgba(255,236,150,0.95)");
-      fg.addColorStop(0.4, "rgba(255,150,40,0.85)");
-      fg.addColorStop(1, "rgba(200,40,0,0)");
-      ctx.fillStyle = fg;
-      ctx.beginPath(); ctx.arc(cx, cy, rad * 1.1, 0, 7); ctx.fill();
-    } else if (!seq.source.has_thermal) {
-      ctx.fillStyle = "rgba(255,255,255,0.5)";
-      ctx.font = "600 12px IBM Plex Mono, monospace"; ctx.textAlign = "center";
-      ctx.fillText("RGB only - no thermal hot-area measurement", W / 2, 22);
+    // RGB-only sequences: the overlay is ground truth, not a pipeline reading.
+    // Drawn as a pill at bottom-center so it clears the top stamps and the
+    // bottom-left measurement chips.
+    if (fa && fa.truth_overlay && toggles.mask) {
+      var lbl = "Ground truth hot area - RGB only, no model saw thermal";
+      ctx.font = "600 12px IBM Plex Mono, monospace"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      var lw = ctx.measureText(lbl).width + 20, ly = H - 20;
+      ctx.fillStyle = "rgba(0,0,0,0.55)";
+      roundRect(ctx, W / 2 - lw / 2, ly - 11, lw, 22, 5); ctx.fill();
+      ctx.fillStyle = "rgba(255,255,255,0.82)";
+      ctx.fillText(lbl, W / 2, ly);
     }
 
     // Measurement chips, stacked bottom-left, one per enabled toggle.
@@ -430,6 +553,19 @@
       ctx.textAlign = "right"; ctx.fillText(v + "%", padL - 6, yy);
     });
 
+    // Frames Qwen chose to probe with `decide`: a faint accent band plus a tick.
+    var probed = probedIndices(seq);
+    if (probed.length) {
+      var accent = cssVar("--accent");
+      probed.forEach(function (idx) {
+        var xx = x(idx);
+        ctx.fillStyle = accent; ctx.globalAlpha = 0.12;
+        ctx.fillRect(xx - 5, padT, 10, plotH); ctx.globalAlpha = 1;
+        ctx.beginPath(); ctx.moveTo(xx, H - padB); ctx.lineTo(xx - 4, H - padB + 6); ctx.lineTo(xx + 4, H - padB + 6);
+        ctx.closePath(); ctx.fill();
+      });
+    }
+
     series.forEach(function (ser) {
       ctx.strokeStyle = ser.color; ctx.lineWidth = 2; ctx.beginPath();
       var started = false;
@@ -452,9 +588,11 @@
       ctx.fillStyle = ser.color; ctx.beginPath(); ctx.arc(mx, y(raw * ser.scale), 4, 0, 7); ctx.fill();
     });
 
-    $("#chart-legend").innerHTML = series.map(function (ser) {
+    var legend = series.map(function (ser) {
       return '<span><i style="background:' + ser.color + '"></i>' + esc(ser.label) + "</span>";
     }).join("");
+    if (probed.length) legend += '<span><i style="background:' + cssVar("--accent") + ';opacity:.35"></i>Qwen probed</span>';
+    $("#chart-legend").innerHTML = legend;
 
     c._x = x; c._n = n; c._padL = padL; c._padR = padR;
   }

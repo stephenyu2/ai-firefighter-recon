@@ -164,6 +164,7 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .seq-item .tag { font-family: var(--font-mono); font-size: .62rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding: 1px 6px; border-radius: 999px; border: 1px solid var(--border); }
 .seq-item .tag.ok { color: var(--good); border-color: color-mix(in srgb, var(--good) 40%, var(--border)); }
 .seq-item .tag.miss { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, var(--border)); }
+.seq-item .tag.esc { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
 
 /* Stage */
 .stage { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
@@ -251,6 +252,20 @@ input[type="range"] { flex: 1; accent-color: var(--accent); cursor: pointer; }
 .ro-v.clip { color: var(--series-clip); }
 .ro-v.therm { color: var(--series-area); }
 .ro.win .ro-k, .ro.win .ro-v { color: var(--accent); }
+/* Once d3 has answered, fade the statuses it did not pick and lift the winner. */
+.node.d3card.decided .ro { opacity: .34; transition: opacity .3s; }
+.node.d3card.decided .ro.win { opacity: 1; }
+.node.d3card.decided .ro.win .ro-v { font-size: .74rem; }
+
+/* Gate comparison: d3's top prob vs the accept bar, inside the box. */
+.gate-cmp { display: none; gap: 5px; align-items: baseline; justify-content: center;
+  font-family: var(--font-mono); font-weight: 700; font-size: .66rem; margin: 1px 0 1px; }
+.node.gate.lit .gate-cmp, #n-gate.pass .gate-cmp, #n-gate.fail .gate-cmp { display: inline-flex; }
+.gate-cmp #gate-p { font-size: .82rem; }
+.gate-cmp #gate-op { color: var(--muted); }
+#n-gate.pass #gate-p { color: var(--good); }
+#n-gate.fail #gate-p { color: var(--bad); }
+#n-gate.pass, #n-gate.fail { width: auto; min-width: 98px; padding-left: 10px; padding-right: 10px; }
 
 .ev-label { position: absolute; left: 19%; top: 82%; transform: translate(-50%, -50%); font-family: var(--font-mono); font-size: .6rem; color: var(--muted); opacity: .4; white-space: nowrap; transition: opacity .25s; }
 .flow-diagram.ev-on .ev-label { opacity: 1; }
@@ -265,6 +280,23 @@ input[type="range"] { flex: 1; accent-color: var(--accent); cursor: pointer; }
 
 .flow-caption { margin-top: 10px; font-size: .86rem; color: var(--fg); min-height: 2.6em; line-height: 1.4; }
 .flow-caption b { color: var(--accent); }
+
+/* Qwen's tool-call log, shown on escalated sequences when the Qwen node is reached. */
+.toolcalls { margin-top: 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); padding: 10px 12px; }
+.tc-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.tc-title { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--fg); }
+.tc-note { font-size: .68rem; color: var(--muted); }
+.tc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.tc-call { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; font-size: .72rem; padding: 4px 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); opacity: 0; animation: tcIn .34s ease forwards; }
+@keyframes tcIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.tc-call.finish { border-color: color-mix(in srgb, var(--good) 35%, var(--border)); }
+.tc-name { font-weight: 700; color: var(--accent); white-space: nowrap; }
+.tc-call.finish .tc-name { color: var(--good); }
+.tc-frame { color: var(--fg); }
+.tc-ret { color: var(--muted); display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 6px; }
+.tc-p b { color: var(--fg); }
+.tc-p.hot b { color: var(--accent); }
+.tc-dot { color: var(--border); }
 
 .chartwrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 10px; box-shadow: var(--shadow); min-width: 0; }
 .chart-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
