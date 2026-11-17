@@ -36,7 +36,4 @@ Run the demo locally first:
 
 ---
 
-About 210 words, ~90 seconds at a natural pace. If a take runs long, cut the
-Qwen detail or the closing line first.
-
 Public demo video: https://www.youtube.com/watch?v=f_WylvfU87s
