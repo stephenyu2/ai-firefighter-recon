@@ -43,10 +43,17 @@ file in the same shape:
   invented sequences in the same shape. Kept for offline UI work when the result
   files are not present.
 
-The bundled frame images are placeholder terrain drawn from the numbers, not
-real drone stills, so the page runs with zero image assets. Every number shown
-(measurements, cascade probabilities, brief) is real. When real `overlay_png`
-paths are present the viewer can show those instead.
+The viewer draws the real drone stills, bundled under `frames/` and indexed by
+`frames/manifest.js`, with the thermal hot-area PNG registered on top (see
+`frames/README.md`). Every number shown (measurements, cascade probabilities,
+brief) is real. If an image has not loaded yet the frame falls back to a
+drawn-from-the-numbers stand-in, so the page never shows blank.
+
+Qwen's planner tool calls on the escalated sequences are in `tool_calls.js`,
+pulled from `experiments/decision-cascade/results/runs_v3.jsonl.gz` (label
+`cascade-d3`): the `decide` / `finish` calls and the probe answers. Only
+sequences that fall under d3's 0.80 confidence bar reach Qwen, so only those
+carry tool calls. They feed the written brief.
 
 ## What the page shows per sequence
 
